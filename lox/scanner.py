@@ -1,6 +1,7 @@
-from lox.token_types import *
 from lox.token import Token
+from lox.token_types import *
 from tools import raise_error
+
 
 class Scanner:
     def __init__(self, source):
@@ -21,10 +22,10 @@ class Scanner:
     def scan_tokens(self):
         while not self.is_at_end():
             # we are at the beginning of the next lexeme
-            self.start = self.current
+            self.start = self.current       # -> points to the start of next lexeme
             self.scan_token()
             #   here we are not breaking the loop in case of error
-            # i just want to consume the tokens until EOF and then report the errors all at a time
+            # I just want to consume the tokens until EOF and then report the errors all at a time
 
         self.tokens.append(Token(TokenType.EOF, "", None, self.line))
 
@@ -54,6 +55,23 @@ class Scanner:
         elif char == '*':
             self.add_token(TokenType.ASTERISK)
 
+        elif char == '/':
+            if self.match('/'):
+                # a comment goes until the line ends
+                while self.peek() != '\n' and not self.is_at_end():
+                    self.advance()
+                else:
+                    self.add_token(TokenType.FORWARD_SLASH)
+
+        elif char in {' ', '\r', '\t'}:
+            # ignore white spaces
+            pass
+
+        elif char == '\n':
+            # increments the line number
+            self.line += 1
+
+
         # for comparision operators
         elif char == '!':
             self.add_token(TokenType.EXCLAMATION_EQUAL if self.match('=') else TokenType.EXCLAMATION)
@@ -63,6 +81,16 @@ class Scanner:
             self.add_token(TokenType.LESS_THAN_EQUAL if self.match('=') else TokenType.LESS_THAN)
         elif char == '>':
             self.add_token(TokenType.GREATER_THAN_EQUAL if self.match('=') else TokenType.GREATER_THAN)
+
+
+        # handling sting literals
+        elif char == '"':
+            self.string()
+
+        # handling number literals
+        elif self.is_digit(char):
+            self.number()
+
         else:
             raise_error.error(self.line, f"Unexpected character: {char}")
 
@@ -89,6 +117,66 @@ class Scanner:
 
         self.current += 1   # consume the matching char
         return True
+
+    def peek(self):
+        if self.is_at_end():
+            return '\0'     # returns NULL
+        return self.source[self.current]    # char lookahed
+
+
+    def string(self):
+        while self.peek() != '"' and self.is_at_end():
+            if self.peek() == '\n':
+                self.line += 1      # handles new line breaks in the string variable -> multi-line strings
+            self.advance()
+
+        if self.is_at_end():
+            raise_error.error(self.line, "Unterminated string.")
+            return
+
+        # the closing "
+        self.advance()
+
+        # trimming the surrounding quotes
+        value = self.source[self.start+1: self.current - 1]
+        self.add_token(TokenType.STRING_LITERAL, value)
+
+
+    def is_digit(self, c):
+        return c.isdigit()
+
+    def number(self):
+        # Record the starting point of the token.
+        start = self.current
+
+        while self.is_digit(self.peek()):
+            self.advance()  # process the int part
+
+        # Look for the fractional part.
+        if self.peek() == '.' and self.is_digit(self.peek_next()):
+            # Consume the "."
+            self.advance()
+
+            while self.is_digit(self.peek()):
+                self.advance()
+
+        # ensure there's only one decimal point
+        if self.peek() == '.':
+            raise_error.error(self.line, "Invalid number with double decimal point")
+            return
+
+
+        # convert the number string into float
+        number_value = float(self.source[start: self.current])
+        self.add_token(TokenType.NUMBER_LITERAL, number_value)
+
+
+    def peek_next(self):
+        if self.current + 1 >= len(self.source):
+            return '\0'
+        return self.source[self.current + 1]
+
+
 
 
 

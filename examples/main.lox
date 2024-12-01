@@ -1,0 +1,5 @@
+var name = "Mrinmoy";
+print name
+
+// this is a comment
+int num = 44;

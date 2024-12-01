@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "lox"
+version = "0.1.0"
+description = ""
+authors = ["mrinmoy-hex <ddas38192@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.3.4"
+
+[tool.poetry.scripts]
+lox = "lox.lox:Lox.main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

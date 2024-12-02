@@ -38,7 +38,7 @@ class Lox:
 
     @staticmethod
     def run_prompt():
-        print("Tachyon REPL (type 'exit' to quit)")
+        print("LOX REPL (type 'exit' to quit)")
         while True:
             line = input("> ")
             if line == "" or line == "exit":
@@ -51,6 +51,7 @@ class Lox:
     def run(source):
         scanner = Scanner(source)
         tokens = scanner.scan_tokens()
+        
 
         # for now, just print the tokens
         for token in tokens:
@@ -62,12 +63,6 @@ class Lox:
     #######################
     # Error handling
     #######################
-
-
-
-
-
-
 
 
 

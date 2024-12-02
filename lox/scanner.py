@@ -24,10 +24,13 @@ class Scanner:
             # we are at the beginning of the next lexeme
             self.start = self.current       # -> points to the start of next lexeme
             self.scan_token()
+
             #   here we are not breaking the loop in case of error
             # I just want to consume the tokens until EOF and then report the errors all at a time
 
         self.tokens.append(Token(TokenType.EOF, "", None, self.line))
+        
+        return self.tokens
 
 
     # recognizing lexeme
@@ -60,8 +63,9 @@ class Scanner:
                 # a comment goes until the line ends
                 while self.peek() != '\n' and not self.is_at_end():
                     self.advance()
-                else:
-                    self.add_token(TokenType.FORWARD_SLASH)
+                    # No token is added for comments, as they are ignored.
+            else:
+                self.add_token(TokenType.FORWARD_SLASH)
 
         elif char in {' ', '\r', '\t'}:
             # ignore white spaces
@@ -93,7 +97,7 @@ class Scanner:
 
         # support for reserved keywords
         elif self.is_alpha(char):
-            self.identifier()
+            self.indentifier()
 
         else:
             raise_error.error(self.line, f"Unexpected character: {char}")
@@ -107,6 +111,7 @@ class Scanner:
     def add_token(self, type_, literal=None):
         text = self.source[self.start:self.current]
         self.tokens.append(Token(type_, text, literal, self.line))
+        # print(self.tokens[0])
 
 
 
@@ -133,7 +138,7 @@ class Scanner:
 
 
     def string(self):
-        while self.peek() != '"' and self.is_at_end():
+        while self.peek() != '"' and not self.is_at_end():
             if self.peek() == '\n':
                 self.line += 1      # handles new line breaks in the string variable -> multi-line strings
             self.advance()
@@ -155,7 +160,9 @@ class Scanner:
 
     def number(self):
         # Record the starting point of the token.
-        start = self.current
+        start = self.current - 1
+        
+        has_decimal = False
 
         while self.is_digit(self.peek()):
             self.advance()  # process the int part
@@ -164,19 +171,29 @@ class Scanner:
         if self.peek() == '.' and self.is_digit(self.peek_next()):
             # Consume the "."
             self.advance()
+            has_decimal = True
 
             while self.is_digit(self.peek()):
                 self.advance()
 
-        # ensure there's only one decimal point
-        if self.peek() == '.':
-            raise_error.error(self.line, "Invalid number with double decimal point")
+        # If there's a decimal without following digits, it's an error.
+        elif self.peek() == '.':
+            raise_error.error(self.line, "Invalid number format: trailing decimal point")
+            return
+        
+        # Ensure there's no second decimal point.
+        if has_decimal and self.peek() == '.':
+            raise_error.error(self.line, "Invalid number format: multiple decimal points")
             return
 
 
         # convert the number string into float
-        number_value = float(self.source[start: self.current])
-        self.add_token(TokenType.NUMBER_LITERAL, number_value)
+        try:
+            number_value = float(self.source[start: self.current])
+            print(number_value)
+            self.add_token(TokenType.NUMBER_LITERAL, number_value)
+        except ValueError:
+            raise_error.error(self.line, f"Invalid number: {self.source[self.start:self.current]}")
 
 
     def peek_next(self):
@@ -186,7 +203,7 @@ class Scanner:
 
 
 
-    def indentifier(self, char):
+    def indentifier(self):
         while self.is_alphanumeric(self.peek()):
             self.advance()
 

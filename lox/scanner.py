@@ -91,10 +91,18 @@ class Scanner:
         elif self.is_digit(char):
             self.number()
 
+        # support for reserved keywords
+        elif self.is_alpha(char):
+            self.identifier()
+
         else:
             raise_error.error(self.line, f"Unexpected character: {char}")
 
 
+
+    ###################################################################3
+    # Methods
+    ###################################################################
 
     def add_token(self, type_, literal=None):
         text = self.source[self.start:self.current]
@@ -177,6 +185,51 @@ class Scanner:
         return self.source[self.current + 1]
 
 
+
+    def indentifier(self, char):
+        while self.is_alphanumeric(self.peek()):
+            self.advance()
+
+        # Extract the full identifier or keyword text
+        text = self.source[self.start:self.current]
+
+        # Check if it's a reserved keyword; otherwise, treat as an identifier
+        token_type = self.KEYWORDS.get(text, TokenType.IDENTIFIER)
+
+        # Add the token for the keyword or identifier
+        self.add_token(token_type)
+
+
+
+    def is_alpha(self, char):
+        """Check if the character is an alphabet or an underscore."""
+        return char.isalpha() or char == '_'
+
+
+    def is_alphanumeric(self, char):
+        """Check if the char is a letter, digit or underscore"""
+        return  self.is_alpha(char) or self.is_digit(char)
+
+
+    # reserved keywords
+    KEYWORDS = {
+        "and": TokenType.KEYWORD_AND,
+        "class": TokenType.KEYWORD_CLASS,
+        "else": TokenType.KEYWORD_ELSE,
+        "false": TokenType.KEYWORD_FALSE,
+        "for": TokenType.KEYWORD_FOR,
+        "fn": TokenType.KEYWORD_FUNCTION,
+        "if": TokenType.KEYWORD_IF,
+        "nil": TokenType.KEYWORD_NIL,
+        "or": TokenType.KEYWORD_OR,
+        "print": TokenType.KEYWORD_PRINT,
+        "return": TokenType.KEYWORD_RETURN,
+        "super": TokenType.KEYWORD_SUPER,
+        "this": TokenType.KEYWORD_THIS,
+        "true": TokenType.KEYWORD_TRUE,
+        "var": TokenType.KEYWORD_VARIABLE,
+        "while": TokenType.KEYWORD_WHILE,
+    }
 
 
 

@@ -3,3 +3,10 @@ print name
 
 // this is a comment
 int num = 44.;
+
+/*
+
+This is a multi-line comment, i hope it'll work :)
+
+*/
+

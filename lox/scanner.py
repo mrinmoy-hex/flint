@@ -64,8 +64,19 @@ class Scanner:
                 while self.peek() != '\n' and not self.is_at_end():
                     self.advance()
                     # No token is added for comments, as they are ignored.
+                    
+                    
+            # support for multiline comments
+            elif self.match('*'):
+                self.scan_multiline_comment()
+                    
+                    
+                    # self.current += 1
+            
             else:
                 self.add_token(TokenType.FORWARD_SLASH)
+                
+        
 
         elif char in {' ', '\r', '\t'}:
             # ignore white spaces
@@ -116,6 +127,8 @@ class Scanner:
 
 
     def advance(self) -> str:
+        if self.is_at_end():
+            return '\0'     # returns a null character to handle end of input
         char = self.source[self.current]    # get the current char
         self.current += 1   # move the pointer to next char
         return char
@@ -176,24 +189,21 @@ class Scanner:
             while self.is_digit(self.peek()):
                 self.advance()
 
-        # If there's a decimal without following digits, it's an error.
-        elif self.peek() == '.':
-            raise_error.error(self.line, "Invalid number format: trailing decimal point")
-            return
         
         # Ensure there's no second decimal point.
-        if has_decimal and self.peek() == '.':
-            raise_error.error(self.line, "Invalid number format: multiple decimal points")
+        if has_decimal and not self.is_digit(self.peek()):
+            raise_error.error(self.line, "Invalid number format: trailing decimal point")
             return
 
 
         # convert the number string into float
+        value = self.source[start:self.current]
         try:
             number_value = float(self.source[start: self.current])
-            print(number_value)
+            # print(number_value)
             self.add_token(TokenType.NUMBER_LITERAL, number_value)
         except ValueError:
-            raise_error.error(self.line, f"Invalid number: {self.source[self.start:self.current]}")
+            raise_error.error(self.line, f"Invalid number: {value}")
 
 
     def peek_next(self):
@@ -247,6 +257,36 @@ class Scanner:
         "var": TokenType.KEYWORD_VARIABLE,
         "while": TokenType.KEYWORD_WHILE,
     }
+    
+    
+    def scan_multiline_comment(self):
+        # Ensure we encounter '/*' before entering the comment.
+        # if not self.ma:
+        #     raise_error.error(self.line, "Unexpected character in comment start.")
+            
+            
+        while True:
+            if self.is_at_end():  # If we reach the end of the input, the comment is unterminated.
+                raise_error.error(self.line, "Unterminated comment.")
+                return
+
+            # if self.peek() == '*' and self.peek_next() == '/':  # look ahead to check for */
+            #     self.advance()
+            #     self.advance()
+            #     return  # comment ended
+            
+            
+            # look ahead for '*/' to terminate the comment
+            if self.match('*') and self.match('/'):
+                return      # end the comment
+            
+            
+
+            if self.peek() == '\n':
+                self.line += 1
+                
+            self.advance()      # consume the character
+            
 
 
 

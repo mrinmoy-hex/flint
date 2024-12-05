@@ -1,0 +1,6 @@
+# Python cache files
+__pycache__/
+.pytest_cache/
+lox/__pycache__
+tests/__pycache__
+tools/__pycache__

@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["mrinmoy-hex <ddas38192@gmail.com>"]
 readme = "README.md"
+packages = [{ include = "lox" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"

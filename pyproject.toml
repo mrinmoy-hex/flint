@@ -14,6 +14,9 @@ pytest = "^8.3.4"
 lox = "lox.lox:Lox.main"
 
 
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.3.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

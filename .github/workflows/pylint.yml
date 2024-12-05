@@ -5,9 +5,10 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       matrix:
-        python-version: ["3.12"]  # You can specify the versions you want to test
+        python-version: ["3.12"] 
 
     steps:
     - uses: actions/checkout@v4
@@ -26,7 +27,7 @@ jobs:
     # Install dependencies using Poetry
     - name: Install dependencies
       run: |
-        poetry install
+        poetry run pylint --disable=all --enable=C0103 lox tools
 
     # Run Pylint using Poetry's virtual environment
     - name: Analysing the code with pylint

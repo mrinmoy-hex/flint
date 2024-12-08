@@ -1,7 +1,0 @@
-pyproject.toml
-src/lox/__init__.py
-src/lox/lox.py
-src/lox.egg-info/PKG-INFO
-src/lox.egg-info/SOURCES.txt
-src/lox.egg-info/dependency_links.txt
-src/lox.egg-info/top_level.txt

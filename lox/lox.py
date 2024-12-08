@@ -58,15 +58,5 @@ class Lox:
             print(token)
 
 
-
-
-    #######################
-    # Error handling
-    #######################
-
-
-
-
-
 if __name__ == '__main__':
     Lox.main()

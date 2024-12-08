@@ -9,7 +9,7 @@ def error(line: int, message: str) -> None:
     """Reports an error at a specific line."""
     report(line, "", message)
     
- 
+
 
 
 def report(line: int, pos_where: str, message: str):

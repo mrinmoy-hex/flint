@@ -1,27 +1,34 @@
 from lox.token_types import TokenType
-from typing import List
 from lox.ast.expr import *
 from tools import raise_error
 
 class Parser:
-    def __init__(self, tokens: List['Token']) -> None:
+    def __init__(self, tokens) -> None:
         """
         Initializes the Parser with a list of tokens
         """
-        self.tokens = tokens   
+        self._tokens = tokens   
         self.current = 0       # tracks the current pos in the token list
+        
+        
+    
+    class ParseError(Exception):
+        """Custom exception for error class"""
+        pass
+    
+    
         
 
     @property
-    def tokens(self) -> List['Token']:
+    def tokens(self):
         """
         Provides read-only access to the tokens.
         """
-        return self.tokens
+        return self._tokens
     
     
     
-    def expression(self) -> 'Expr':
+    def expression(self):
         """
         Parses and returns an expression.
         """
@@ -29,7 +36,7 @@ class Parser:
     
     
     
-    def equality(self) -> 'Expr':
+    def equality(self):
         """
         Parses an equality expression, handling binary operations with '!=' and '=='.
         """
@@ -99,7 +106,7 @@ class Parser:
         return self.peek().type == TokenType.EOF
     
     
-    def peek(self) -> 'Token':
+    def peek(self):
         """
         Returns the current token without advancing the pos
         """
@@ -107,7 +114,7 @@ class Parser:
     
     
     
-    def previous(self) -> 'Token':
+    def previous(self):
         """
         Returns the most recently consumed token
         """
@@ -124,8 +131,9 @@ class Parser:
     
     def error(self, token, message):
         raise_error.error(token, message)
-        return ParseError()
-        
+        raise self.ParseError()  # raise the custom ParseError
+    
+    
     
     
     #########################################
@@ -183,7 +191,50 @@ class Parser:
             expr = self.expression()
             self.consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.")
             return expr
+            # return Grouping(expr)
+        
+        # if none above matches, we've an error
+        self.error(self.peek(), "Expect expression.")
+        return None
+        
+        
+        
+    ######################################################
+    # Synchronization for error recovery
+    ######################################################
     
+    def synchronize(self):
+        self.advance()
+        
+        while not self.is_at_end():
+            if self.previous().type == TokenType.SEMICOLON:
+                return
+            
+            if self.peek().type in {
+                TokenType.KEYWORD_CLASS,
+                TokenType.KEYWORD_FUNCTION,
+                TokenType.KEYWORD_VARIABLE, 
+                TokenType.KEYWORD_FOR,
+                TokenType.KEYWORD_IF,
+                TokenType.KEYWORD_WHILE,
+                TokenType.KEYWORD_PRINT, 
+                TokenType.KEYWORD_RETURN,
+            }:
+                return
+            
+            self.advance()
+            
+            
+    #####################################################
+    # Kick start point
+    ####################################################
+    
+    def parse(self):
+        try:
+            return self.expression()
+        except self.ParseError as e:
+            print(f"Error: {e}")
+            return None
 
         
         

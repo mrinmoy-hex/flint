@@ -4,5 +4,7 @@ __pycache__/
 lox/__pycache__
 tests/__pycache__
 tools/__pycache__
+ast/__pycache__
+
 .idea/
 .vscode/

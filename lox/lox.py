@@ -1,6 +1,12 @@
+#############################################
+# Imports
+#############################################
+
 import sys
 from tools.raise_error import *
 from lox.scanner import Scanner
+from lox.parser import Parser
+from tools.ast_printer import AstPrinter
 
 class Lox:
 
@@ -51,11 +57,18 @@ class Lox:
     def run(source):
         scanner = Scanner(source)
         tokens = scanner.scan_tokens()
+        parser = Parser(tokens)
         
+        expression = parser.parse()
+        if expression is None:
+            raise ValueError("Parsing failed. Expression is None.")
+        
+        # stop if there was a syntax error
+        if had_error:
+            return
 
-        # for now, just print the tokens
-        for token in tokens:
-            print(token)
+        # print the AST
+        print(AstPrinter().print_ast(expression))
 
 
 if __name__ == '__main__':

@@ -4,8 +4,12 @@ from lox.token_types import TokenType
 
 class AstPrinter(ExprVisitor):
     
-    def print(self, expr):
+    def print_ast(self, expr):
+        # print(expr)
         # Start visitor process
+        if expr is None:
+            return ValueError
+        
         return expr.accept(self)
     
     def visit_binary(self, binary):
@@ -30,7 +34,7 @@ class AstPrinter(ExprVisitor):
         # Helper method to format expressions
         parts = [name]
         for expr in exprs:
-            parts.append(self.print(expr))
+            parts.append(self.print_ast(expr))
         return f"({' '.join(parts)})"
 
 
@@ -47,5 +51,6 @@ expression = Binary(
 )
 
 # Printing the expression
-printer = AstPrinter()
-print(printer.print(expression))
+if __name__ == '__main__':
+    printer = AstPrinter()
+    print(printer.print(expression))

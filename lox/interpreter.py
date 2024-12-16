@@ -1,5 +1,4 @@
 # Imports
-from lox.ast.expr import ExprVisitor
 from lox.token_types import TokenType
 from lox.runtime_error import CustomRunTimeError
 from tools.raise_error import *

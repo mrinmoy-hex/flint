@@ -23,4 +23,10 @@ def report(line: int, pos_where: str, message: str):
     print(f"[line {line}] Error{pos_where}: {message}", file=sys.stderr)
     had_error = True
     
+    
+def runtime_error(error):
+    """Handles runtime errors by printing the error message."""
+    print(f"{error.message}\n[line {error.token.line}]", file=sys.stderr)
+    had_runtime_error = True
+    
 

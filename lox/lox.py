@@ -7,10 +7,12 @@ from tools.raise_error import *
 from lox.scanner import Scanner
 from lox.parser import Parser
 from tools.ast_printer import AstPrinter
+from lox.interpreter import Interpreter
 
 class Lox:
 
     had_error = False
+    had_runtime_error = False
 
     @staticmethod
     def main() -> None:
@@ -39,6 +41,9 @@ class Lox:
         # indicate an error in the exit code
         if Lox.had_error:
             sys.exit(64)
+        
+        if Lox.had_runtime_error:
+            sys.exit(70)
 
 
 
@@ -59,6 +64,8 @@ class Lox:
         tokens = scanner.scan_tokens()
         parser = Parser(tokens)
         
+        interpreter = Interpreter()
+        
         expression = parser.parse()
         if expression is None:
             raise ValueError("Parsing failed. Expression is None.")
@@ -66,9 +73,11 @@ class Lox:
         # stop if there was a syntax error
         if had_error:
             return
+        
+        interpreter.interpret(expression)
 
         # print the AST
-        print(AstPrinter().print_ast(expression))
+        # print(AstPrinter().print_ast(expression))
 
 
 if __name__ == '__main__':

@@ -1,5 +1,10 @@
+# Imports
 from lox.ast.expr import ExprVisitor
 from lox.token_types import TokenType
+from lox.runtime_error import CustomRunTimeError
+from tools.raise_error import *
+
+
 class Interpreter:
     
     def visit_literal(self, expr):
@@ -24,10 +29,8 @@ class Interpreter:
             return not self.is_truthy(right)
         
         elif expr.operator.type == TokenType.MINUS:
-            if isinstance(right, (int, float)):
-                return -float(right)
-        
-        
+            self.check_number_operand(expr.operator, right)
+            return -float(right)
         
         # unreachable
         return None
@@ -41,15 +44,19 @@ class Interpreter:
         
         # handling comparision operator
         if expr.operator.type == TokenType.GREATER_THAN:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) > float(right)
         
         elif expr.operator.type == TokenType.GREATER_THAN_EQUAL:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) >= float(right)
         
         elif expr.operator.type == TokenType.LESS_THAN:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) < float(right)
         
         elif expr.operator.type == TokenType.LESS_THAN_EQUAL:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) <= float(right)
         
         # check for equality operators
@@ -64,6 +71,7 @@ class Interpreter:
         # handling arighmetic operators
         
         elif expr.operator.type == TokenType.MINUS:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) - float(right)
         
         # handling plus for both adding and for concatinating strings
@@ -76,27 +84,26 @@ class Interpreter:
             if isinstance(left, str) and isinstance(right, str):
                 return left + right
             
-            # handling the edge cases like cannot concatenate string with number like that....in future :D
+            # Raise error for invalid operands
+            raise CustomRunTimeError(expr.operator, "Operands must be two numbers or two strings.")
+            
             
             
         elif expr.operator.type == TokenType.FORWARD_SLASH:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) / float(right)
         
         elif expr.operator.type == TokenType.ASTERISK:
+            self.check_number_operands(expr.operator, left, right)
             return float(left) * float(right)
         
         # unreachable if the expression is valid
         return None
     
     
-        
-        
-        
-    
-    
     
     ###########################################
-    # Helper method
+    # Helper methods
     ###########################################
     
     def is_truthy(self, object):
@@ -112,5 +119,53 @@ class Interpreter:
             return False
         
         return left == right
+    
+    
+    def check_number_operand(self, operator, operand):
+        """Ensure the operand is a number else raise an error"""
+        if isinstance(operand, (int, float)):
+            return
+        # custom exception
+        raise CustomRunTimeError(f"Operand must be a number for operator '{operator.lexeme}'.")
         
         
+    def check_number_operands(self, operator, left, right):
+        """Ensures that both operands are numbers"""
+        if isinstance(left, (int, float)) and isinstance(right, (int, float)):
+            return  # both operands are numbers, proceed
+        
+        raise CustomRunTimeError(operator, "Operands must be numbers")
+            
+            
+    def stringify(self, obj):
+        if obj is None:
+            return "nil"
+        
+        if isinstance(obj, float):
+            text = str(obj)
+            if text.endswith(".0"):
+                text = text[:-2]    # removes the ".0" part
+            return text
+        
+        return str(obj)
+            
+            
+    ############################################
+    # Interpreter’s public API
+    ############################################
+    
+    def interpret(self, expression):
+        """
+        Interprets the expression, evaluates it, and prints the result.
+    
+        Handles exceptions by printing runtime errors with their respective line number.
+        """
+        try:
+            value = self.evaluate(expression)
+            print(self.stringify(value))
+        except CustomRunTimeError as error:
+            runtime_error(error)
+    
+    
+    
+            

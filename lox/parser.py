@@ -230,10 +230,14 @@ class Parser:
     ####################################################
     
     def parse(self):
+        """
+        Initiates parsing and handles parse errors.
+        """
         try:
-            return self.expression()
-        except self.ParseError as e:
-            print(f"Error: {e}")
+            return self.expression()    # Start parsing the expression.
+        
+        except self.ParseError:
+            self.synchronize()  # recover from the error if necessary
             return None
 
         

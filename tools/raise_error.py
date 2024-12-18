@@ -4,6 +4,7 @@
 import sys
 from lox.token_types import TokenType
 from lox.token import *
+from lox.runtime_error import CustomRunTimeError
 
 had_error = False   # to track if an error occured
 
@@ -24,9 +25,9 @@ def report(line: int, pos_where: str, message: str):
     had_error = True
     
     
-def runtime_error(error):
+def runtime_error(error: CustomRunTimeError) -> None:
     """Handles runtime errors by printing the error message."""
-    print(f"{error.message}\n[line {error.token.line}]", file=sys.stderr)
+    print(f"[line {error.token.line}] {error.message}\n", file=sys.stderr)
     had_runtime_error = True
     
 

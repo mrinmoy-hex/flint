@@ -87,10 +87,15 @@ class Interpreter:
             raise CustomRunTimeError(expr.operator, "Operands must be two numbers or two strings.")
             
             
-            
+        # handling also zero division error    
         elif expr.operator.type == TokenType.FORWARD_SLASH:
             self.check_number_operands(expr.operator, left, right)
-            return float(left) / float(right)
+            try:
+                # try to divide
+                return float(left) / float(right)
+            except ZeroDivisionError:
+                raise CustomRunTimeError(expr.operator, "Division by zero is not allowed.")
+
         
         elif expr.operator.type == TokenType.ASTERISK:
             self.check_number_operands(expr.operator, left, right)

@@ -4,4 +4,5 @@ class CustomRunTimeError(Exception):
     
     def __init__(self, tokens, message):
         super().__init__(message)   # initialize the base class with the new message
-        self.tokens = tokens        # store the tokens associated with the error
+        self.token = tokens        # store the tokens associated with the error
+        self.message = message

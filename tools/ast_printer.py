@@ -1,6 +1,6 @@
-from lox.ast.expr import *
-from lox.token import Token
-from lox.token_types import TokenType
+from flint.ast.expr import *
+from flint.token import Token
+from flint.token_types import TokenType
 
 class AstPrinter(ExprVisitor):
     

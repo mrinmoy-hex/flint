@@ -1,10 +1,10 @@
 #################
-# Error handling for Lox
+# Error handling for Flint
 #################
 import sys
-from lox.token_types import TokenType
-from lox.token import *
-from lox.runtime_error import CustomRunTimeError
+from flint.token_types import TokenType
+from flint.token import *
+from flint.runtime_error import CustomRunTimeError
 
 had_error = False   # to track if an error occured
 

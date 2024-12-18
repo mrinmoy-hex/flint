@@ -4,12 +4,12 @@
 
 import sys
 from tools.raise_error import *
-from lox.scanner import Scanner
-from lox.parser import Parser
+from flint.scanner import Scanner
+from flint.parser import Parser
 # from tools.ast_printer import AstPrinter
-from lox.interpreter import Interpreter
+from flint.interpreter import Interpreter
 
-class Lox:
+class Flint:
 
     had_error = False
     had_runtime_error = False
@@ -17,13 +17,13 @@ class Lox:
     @staticmethod
     def main() -> None:
         if len(sys.argv) > 2:
-            print("Usage: lox [script]")
+            print("Usage: Flint [script]")
             sys.exit(64)
         elif len(sys.argv) == 2:
-            Lox.run_file(sys.argv[1])
+            Flint.run_file(sys.argv[1])
         else:
             # for REPL mode
-            Lox.run_prompt()
+            Flint.run_prompt()
 
 
     @staticmethod
@@ -31,7 +31,7 @@ class Lox:
         try:
             with open(path, 'r', encoding='utf-8') as file:
                 content = file.read()
-                Lox.run(content)
+                Flint.run(content)
 
 
         except IOError as e:
@@ -39,23 +39,23 @@ class Lox:
             exit(64)    # std exit code i found
 
         # indicate an error in the exit code
-        if Lox.had_error:
+        if Flint.had_error:
             sys.exit(64)
         
-        if Lox.had_runtime_error:
+        if Flint.had_runtime_error:
             sys.exit(70)
 
 
 
     @staticmethod
     def run_prompt():
-        print("LOX REPL (type 'exit' to quit)")
+        print("Flint REPL (type 'exit' to quit)")
         while True:
             line = input("> ")
             if line == "" or line == "exit":
                 break
-            Lox.run(line)
-            Lox.had_error = False
+            Flint.run(line)
+            Flint.had_error = False
 
 
     @staticmethod
@@ -84,4 +84,4 @@ class Lox:
 
 
 if __name__ == '__main__':
-    Lox.main()
+    Flint.main()

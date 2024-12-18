@@ -1,7 +1,7 @@
 # Python cache files
 __pycache__/
 .pytest_cache/
-lox/__pycache__
+flint/__pycache__
 tests/__pycache__
 tools/__pycache__
 ast/__pycache__

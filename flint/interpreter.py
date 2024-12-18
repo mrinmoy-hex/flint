@@ -1,6 +1,6 @@
 # Imports
-from lox.token_types import TokenType
-from lox.runtime_error import CustomRunTimeError
+from flint.token_types import TokenType
+from flint.runtime_error import CustomRunTimeError
 from tools.raise_error import *
 
 
@@ -111,7 +111,7 @@ class Interpreter:
     ###########################################
     
     def is_truthy(self, object):
-        """Determines the truthiness of an object based on Lox's semantics"""
+        """Determines the truthiness of an object based on Flints's semantics"""
         return bool(object) if isinstance(object, bool) else object is not None
     
     

@@ -1,10 +1,10 @@
 import pytest
-import lox.scanner
-from lox.token_types import TokenType
+import flint.scanner
+from flint.token_types import TokenType
 
 def parses_single_character_tokens():
     source = "(){}"
-    scanner = lox.scanner.Scanner(source)
+    scanner = flint.scanner.Scanner(source)
     scanner.scan_tokens()
 
     tokens = scanner.tokens

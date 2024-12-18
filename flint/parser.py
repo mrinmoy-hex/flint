@@ -1,5 +1,5 @@
-from lox.token_types import TokenType
-from lox.ast.expr import *
+from flint.token_types import TokenType
+from flint.ast.expr import *
 from tools import raise_error
 
 class Parser:

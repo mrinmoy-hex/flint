@@ -1,4 +1,4 @@
-from lox.token_types import TokenType
+from flint.token_types import TokenType
 
 class Token:
     """

@@ -1,17 +1,17 @@
 [tool.poetry]
-name = "lox"
+name = "flint"
 version = "0.1.0"
 description = ""
 authors = ["mrinmoy-hex <ddas38192@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "lox" }]
+packages = [{ include = "flint" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 pytest = "^8.3.4"
 
 [tool.poetry.scripts]
-lox = "lox.lox:Lox.main"
+flint = "flint.flint:Flint.main"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,5 +1,5 @@
-from lox.token import Token
-from lox.token_types import *
+from flint.token import Token
+from flint.token_types import *
 from tools import raise_error
 
 

@@ -1,4 +1,4 @@
-# Grammar Specification for Lox:
+# Grammar Specification for Flint:
 
 expression     → equality ;
 equality       → comparison ( ( "!=" | "==" ) comparison )* ;

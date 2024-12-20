@@ -4,7 +4,42 @@ from flint.runtime_error import CustomRunTimeError
 from tools.raise_error import *
 
 
-class Interpreter:
+class Interpreter():
+    
+    ############################################
+    # Interpreter’s public API
+    ############################################
+    
+    def interpret(self, statements):
+        """
+        Executes a list of statements sequentially.
+
+        Args:
+            statements (List[Stmt]): A list of statements to be executed.
+
+        Handles runtime errors gracefully by reporting them using the runtime_error method.
+    """
+        try:
+            for statement in statements:
+                self.execute(statement)     # execute each statement in order
+        except CustomRunTimeError as error:
+            runtime_error(error)            # handle and report runtime errors
+            
+            
+            
+    def execute(self, stmt):
+        """
+        Executes a statement by delegating to its accept method.
+
+        Args:
+            stmt (Stmt): The statement to be executed.
+        """
+        stmt.accept(self)   # Delegate execution to the statement's accept method.
+            
+    
+    ############################################
+    # Visitor Methods for Expression Types
+    ############################################
     
     def visit_literal(self, expr):
         """Evaluates literal expression"""
@@ -19,6 +54,37 @@ class Interpreter:
     def evaluate(self, expr):  
         """Evaluates the given expression by accepting the visitor""" 
         return expr.accept(self)
+    
+    
+    
+    def visit_expression(self, stmt):
+        """
+        Executes an expression statement.
+
+        Args:
+            stmt: The expression statement to execute.
+        """
+        self.evaluate(stmt.expression)
+        return None
+    
+    
+    def visit_print(self, stmt):
+        """
+        Evaluates and executes a print statement.
+
+        This method evaluates the given expression in the print statement 
+        and outputs the result to the console using Python's built-in print function. 
+        A custom print library may replace this in the future for enhanced functionality.
+
+        Args:
+            stmt (PrintStmt): The print statement to evaluate.
+        """
+        value = self.evaluate(stmt.expression)      # evaluate the expression in the statement
+        print(self.stringify(value))                # convert the value to a string
+        return None
+    
+    
+    
         
     def visit_unary(self, expr):
         """Visit unary expression"""
@@ -152,24 +218,4 @@ class Interpreter:
             return text
         
         return str(obj)
-            
-            
-    ############################################
-    # Interpreter’s public API
-    ############################################
-    
-    def interpret(self, expression):
-        """
-        Interprets the expression, evaluates it, and prints the result.
-    
-        Handles exceptions by printing runtime errors with their respective line number.
-        """
-        try:
-            value = self.evaluate(expression)
-            print(self.stringify(value))
-        except CustomRunTimeError as error:
-            runtime_error(error)
-    
-    
-    
             

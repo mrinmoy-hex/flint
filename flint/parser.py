@@ -1,11 +1,19 @@
 from flint.token_types import TokenType
 from flint.ast.expr import *
+from flint.ast.stmt import *
 from tools import raise_error
 
 class Parser:
+    """
+    A recursive descent parser for a simple language, responsible for
+    converting a sequence of tokens into an Abstract Syntax Tree (AST).
+    """
     def __init__(self, tokens) -> None:
         """
-        Initializes the Parser with a list of tokens
+        Initialize the parser with a list of tokens.
+
+        Args:
+            tokens (list): A list of Token objects to be parsed.
         """
         self._tokens = tokens   
         self.current = 0       # tracks the current pos in the token list
@@ -16,8 +24,6 @@ class Parser:
         """Custom exception for error class"""
         pass
     
-    
-        
 
     @property
     def tokens(self):
@@ -27,12 +33,47 @@ class Parser:
         return self._tokens
     
     
-    
     def expression(self):
         """
         Parses and returns an expression.
         """
         return self.equality()
+    
+    
+    
+    def statement(self):
+        """
+        Parse a single statement.
+
+        Returns:
+            Stmt: The parsed statement as an AST node.
+        """
+        if self.match(TokenType.KEYWORD_PRINT):
+            return self.print_statement()
+        return self.expression_statement()
+    
+    
+    
+    def print_statement(self):
+        """
+        Parse a print statement.
+
+        This method consumes the current token as an expression to be printed,
+        and ensures the statement ends with a semicolon.
+
+        Returns:
+            Print: A Print statement AST node containing the parsed expression.
+        """
+        value = self.expression()   # parse the expression to print
+        self.consume(TokenType.SEMICOLON, "Expect ';' after value.")
+        return Print(value)         # return a Print statement AST node
+    
+    
+    
+    def expression_statement(self):
+        expr = self.expression()
+        self.consume(TokenType.SEMICOLON, "Expect ',' after expression")
+        return Stmt.Expression(expr)
     
     
     
@@ -62,8 +103,6 @@ class Parser:
         return expr
             
     
-    
-    
     ########################################
     # Methods
     ########################################
@@ -88,12 +127,27 @@ class Parser:
 
     
     def check(self, type):
+        """
+        Check if the current token matches a specific type.
+
+        Args:
+            token_type (str): The type of token to check.
+
+        Returns:
+            bool: True if the current token matches the type, False otherwise.
+        """
         if self.is_at_end():
             return False
         return self.peek().type == type
     
     
     def advance(self):
+        """
+        Advance the parser to the next token and return the current token.
+
+        Returns:
+            Token: The token that was advanced past.
+        """
         if not self.is_at_end():
             self.current += 1
         return self.previous()
@@ -101,14 +155,20 @@ class Parser:
     
     def is_at_end(self) -> bool:
         """
-        Checks if the parser has reached the end of the token list
+        Check if the parser has reached the end of the tokens.
+
+        Returns:
+            bool: True if at the end of the token stream, False otherwise.
         """
         return self.peek().type == TokenType.EOF
     
     
     def peek(self):
         """
-        Returns the current token without advancing the pos
+        Get the current token without advancing the parser.
+
+        Returns:
+            Token: The current token.
         """
         return self.tokens[self.current]
     
@@ -116,12 +176,28 @@ class Parser:
     
     def previous(self):
         """
-        Returns the most recently consumed token
+        Get the most recently consumed token.
+
+        Returns:
+            Token: The previous token.
         """
         return self.tokens[self.current - 1]
     
     
     def consume(self, type: TokenType, message: str):
+        """
+        Consume the current token if it matches the expected type.
+
+        Args:
+            token_type (str): The expected type of the token.
+            error_message (str): The error message to raise if the token doesn't match.
+
+        Returns:
+            Token: The consumed token.
+
+        Raises:
+            RuntimeError: If the current token does not match the expected type.
+        """
         if self.check(type):
             return self.advance()
         else:
@@ -132,7 +208,6 @@ class Parser:
     def error(self, token, message):
         raise_error.error(token, message)
         raise self.ParseError()  # raise the custom ParseError
-    
     
     
     
@@ -233,12 +308,10 @@ class Parser:
         """
         Initiates parsing and handles parse errors.
         """
-        try:
-            return self.expression()    # Start parsing the expression.
-        
-        except self.ParseError:
-            self.synchronize()  # recover from the error if necessary
-            return None
+        statements = []
+        while not self.is_at_end():
+            statements.append(self.statement())
+        return statements
 
         
         

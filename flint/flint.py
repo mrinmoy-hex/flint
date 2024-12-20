@@ -67,17 +67,17 @@ class Flint:
         tokens = scanner.scan_tokens()
         parser = Parser(tokens)
     
-        expression = parser.parse()
+        statements = parser.parse()
     
         # Stop further processing if there were syntax errors
-        if expression is None or had_error:
+        if statements is None or had_error:
             return
     
         interpreter = Interpreter()
     
         # Try to interpret the valid expression
         try:
-            interpreter.interpret(expression)
+            interpreter.interpret(statements)
         except RuntimeError as runtime_err:
             from tools.raise_error import runtime_error
             runtime_error(runtime_err)

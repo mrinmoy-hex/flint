@@ -18,6 +18,9 @@ class ExprVisitor:
     def visit_unary(self, unary):
         raise NotImplementedError()
 
+    def visit_variable(self, variable):
+        raise NotImplementedError()
+
 class Binary(Expr):
     def __init__(self, left, operator, right):
         self.left = left
@@ -48,4 +51,11 @@ class Unary(Expr):
 
     def accept(self, visitor):
         return visitor.visit_unary(self)
+
+class Variable(Expr):
+    def __init__(self, name):
+        self.name = name
+
+    def accept(self, visitor):
+        return visitor.visit_variable(self)
 

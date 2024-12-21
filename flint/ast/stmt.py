@@ -12,6 +12,9 @@ class StmtVisitor:
     def visit_print(self, print):
         raise NotImplementedError()
 
+    def visit_var(self, var):
+        raise NotImplementedError()
+
 class Expression(Stmt):
     def __init__(self, expression):
         self.expression = expression
@@ -25,4 +28,12 @@ class Print(Stmt):
 
     def accept(self, visitor):
         return visitor.visit_print(self)
+
+class Var(Stmt):
+    def __init__(self, name, initializer):
+        self.name = name
+        self.initializer = initializer
+
+    def accept(self, visitor):
+        return visitor.visit_var(self)
 

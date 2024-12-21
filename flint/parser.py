@@ -40,6 +40,33 @@ class Parser:
         return self.equality()
     
     
+    def declaration(self):
+        """
+        Parse a declaration statement. 
+
+        If the current token matches a variable declaration (`VAR`), 
+        parse it as a variable declaration. Otherwise, parse it as a general statement.
+
+        Returns:
+            Stmt: The parsed statement object, or None if a parse error occurs.
+        """
+        
+        try:
+            # check if the current token matches a variable declaration
+            if self.match(TokenType.KEYWORD_VARIABLE):
+                return self.var_declaration()
+            
+            # if not a variable declaration, parse a general statement
+            return self.statement()
+        
+        except self.ParseError:
+            # if a parsing error occurs, recover by synchrinizing and return null
+            self.synchronize()
+            return None
+        
+        
+        
+        
     
     def statement(self):
         """
@@ -67,6 +94,37 @@ class Parser:
         value = self.expression()   # parse the expression to print
         self.consume(TokenType.SEMICOLON, "Expect ';' after value.")
         return Print(value)         # return a Print statement AST node
+    
+    
+    
+    def var_declaration(self):
+        """
+        Parse a variable declaration statement.
+
+        Expects a variable name, followed optionally by an initializer 
+        (if an '=' token is present), and ends with a semicolon.
+
+        Returns:
+            Stmt.Var: A variable declaration statement containing the variable's 
+            name and initializer expression (or None if no initializer is provided).
+        """
+        
+        # consume the identifier token for the variable name
+        name = self.consume(TokenType.IDENTIFIER, "Expect variable name.")
+        
+        # optionally parse an initializer if '=' is present
+        initializer = None
+        if self.match(TokenType.EQUAL):
+            initializer = self.expression()
+        
+        # ensure the statement ends with a semicolon
+        self.consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.")
+        
+        
+        # return a new variable declaration statement node
+        return Stmt.Var(name, initializer)
+        
+    
     
     
     
@@ -249,6 +307,15 @@ class Parser:
     
     
     def primary(self):
+        """
+        Parse a primary expression.
+
+        Handles literals, variables, and grouped expressions enclosed in parentheses.
+
+        Returns:
+            Expr: The parsed primary expression.
+        """
+
         
         if self.match(TokenType.KEYWORD_FALSE):
             return Literal(False)
@@ -260,6 +327,10 @@ class Parser:
         
         if self.match(TokenType.NUMBER_LITERAL, TokenType.STRING_LITERAL):
             return Literal(self.previous().literal)
+        
+        # handle variable access by identifier
+        if self.match(TokenType.IDENTIFIER):
+            return Expr.Variable(self.previous())
         
         
         if self.match(TokenType.LEFT_PAREN):
@@ -310,7 +381,7 @@ class Parser:
         """
         statements = []
         while not self.is_at_end():
-            statements.append(self.statement())
+            statements.append(self.declaration())
         return statements
 
         

@@ -5,9 +5,14 @@ from tools import raise_error
 
 class Parser:
     """
-    A recursive descent parser for a simple language, responsible for
-    converting a sequence of tokens into an Abstract Syntax Tree (AST).
+    Parser class for parsing a list of tokens into an Abstract Syntax Tree (AST).
+    Attributes:
+        _tokens (list): A list of Token objects to be parsed.
+        current (int): Tracks the current position in the token list.
+    Inner Classes:
+        ParseError: Custom exception for parsing errors.
     """
+    
     def __init__(self, tokens) -> None:
         """
         Initialize the parser with a list of tokens.
@@ -37,7 +42,7 @@ class Parser:
         """
         Parses and returns an expression.
         """
-        return self.equality()
+        return self.assignment()
     
     
     def declaration(self):
@@ -129,9 +134,53 @@ class Parser:
     
     
     def expression_statement(self):
+        """
+        Parses an expression statement in the source code.
+
+        This method expects an expression followed by a semicolon.
+        It consumes the semicolon token and returns an Expression statement.
+
+        Returns:
+            Stmt.Expression: An expression statement object.
+
+        Raises:
+            ParseError: If the semicolon is not found after the expression.
+        """
         expr = self.expression()
         self.consume(TokenType.SEMICOLON, "Expect ',' after expression")
         return Stmt.Expression(expr)
+    
+    
+    
+    def assignment(self):
+        """
+        Parses an assignment expression.
+        This method first parses an equality expression. If the next token is an
+        equal sign, it recursively parses the right-hand side of the assignment.
+        If the left-hand side of the assignment is a variable, it creates and
+        returns an Assign expression. Otherwise, it raises an error indicating
+        an invalid assignment target.
+        Returns:
+            Expr: The parsed expression, which could be an equality expression
+                or an assignment expression.
+        Raises:
+            ParseError: If the assignment target is invalid.
+        """
+        expr = self.equality()
+        
+        if self.match(TokenType.EQUAL):
+            equals = self.previous()                            # store the = token
+            value = self.assignment()                           # recursively parse the right-hand side of assignment
+            
+            if isinstance(expr, Variable):  
+                name = expr.name
+                return Assign(name, value)                      # return an assign expression with a variable and a value
+            
+            self.error(equals, "Invalid assignment target.")    # throws an error if it's not a valid target
+            
+        return expr                                             # returns the original expression if there's no assignment
+            
+            
     
     
     
@@ -151,6 +200,14 @@ class Parser:
     
     
     def comparision(self):
+        """
+        Parses and returns a comparison expression.
+        This method handles comparison operators such as greater than, greater than or equal to,
+        less than, and less than or equal to. It maintains left associativity by constructing
+        a binary expression tree.
+        Returns:
+            expr: The parsed comparison expression.
+        """
         expr = self.term()
         
         while self.match(TokenType.GREATER_THAN, TokenType.GREATER_THAN_EQUAL, TokenType.LESS_THAN, TokenType.LESS_THAN_EQUAL):
@@ -264,6 +321,16 @@ class Parser:
         
     
     def error(self, token, message):
+        """
+        Handles parsing errors by raising a custom ParseError.
+
+        Args:
+            token: The token where the error occurred.
+            message: A description of the error.
+
+        Raises:
+            self.ParseError: Custom exception indicating a parsing error.
+        """
         raise_error.error(token, message)
         raise self.ParseError()  # raise the custom ParseError
     
@@ -350,6 +417,17 @@ class Parser:
     ######################################################
     
     def synchronize(self):
+        """
+        Synchronizes the parser by advancing through tokens until it finds a 
+        statement boundary. This is typically used to recover from a parsing 
+        error and continue parsing subsequent statements.
+        The method advances the parser until it finds a semicolon or a token 
+        that indicates the start of a new statement, such as a class, function, 
+        variable declaration, or control flow keyword (for, if, while, print, 
+        return).
+        Returns:
+            None
+        """
         self.advance()
         
         while not self.is_at_end():
@@ -377,8 +455,14 @@ class Parser:
     
     def parse(self):
         """
-        Initiates parsing and handles parse errors.
+        Parses the input and returns a list of statements.
+        This method repeatedly calls the `declaration` method to parse
+        declarations until the end of the input is reached. The parsed
+        declarations are collected into a list and returned.
+        Returns:
+            list: A list of parsed statements.
         """
+        
         statements = []
         while not self.is_at_end():
             statements.append(self.declaration())

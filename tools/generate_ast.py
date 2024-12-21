@@ -75,6 +75,7 @@ class GenerateAst:
         
         # define expressions
         GenerateAst.define_ast(output_dir, "Expr", [
+            "Assign   : Token name, Expr value",  # for variable assignment
             "Binary   : Expr left, Token operator, Expr right",
             "Grouping : Expr expression",
             "Literal  : Object value",

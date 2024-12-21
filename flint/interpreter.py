@@ -39,6 +39,11 @@ class Interpreter():
         Args:
             stmt (Stmt): The statement to be executed.
         """
+        if stmt is None:
+            # saveguard to avoid AttributeError
+            return
+        
+        
         stmt.accept(self)   # Delegate execution to the statement's accept method.
             
     
@@ -107,6 +112,22 @@ class Interpreter():
         self.environment.define(stmt.name.lexeme, value)
         return None
         
+        
+    def visit_assign(self, expr):
+        """
+        Visit an assignment expression, evaluate its value, and assign it to the
+        corresponding variable in the environment.
+
+        Args:
+            expr: The assignment expression to be visited. It should have 'value'
+                and 'name' attributes.
+
+        Returns:
+            The evaluated value of the assignment expression.
+        """
+        value = self.evaluate(expr.value)
+        self.environment.assign(expr.name, value)
+        return value
         
         
         

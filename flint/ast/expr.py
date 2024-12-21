@@ -6,6 +6,9 @@ class Expr:
         raise NotImplementedError()
 
 class ExprVisitor:
+    def visit_assign(self, assign):
+        raise NotImplementedError()
+
     def visit_binary(self, binary):
         raise NotImplementedError()
 
@@ -20,6 +23,14 @@ class ExprVisitor:
 
     def visit_variable(self, variable):
         raise NotImplementedError()
+
+class Assign(Expr):
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+    def accept(self, visitor):
+        return visitor.visit_assign(self)
 
 class Binary(Expr):
     def __init__(self, left, operator, right):

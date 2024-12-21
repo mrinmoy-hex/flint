@@ -1,10 +1,15 @@
 # Imports
 from flint.token_types import TokenType
 from flint.runtime_error import CustomRunTimeError
+from flint.environment import Environment
 from tools.raise_error import *
 
 
 class Interpreter():
+    def __init__(self):
+        # Initialize the environment to store variables
+        self.environment = Environment()
+    
     
     ############################################
     # Interpreter’s public API
@@ -82,6 +87,38 @@ class Interpreter():
         value = self.evaluate(stmt.expression)      # evaluate the expression in the statement
         print(self.stringify(value))                # convert the value to a string
         return None
+    
+    
+    def visit_var(self, stmt):
+        """
+        Evaluates and executes a variable declaration statement.
+
+        This method evaluates the initializer expression in the variable declaration statement 
+        and stores the result in the environment with the variable's name.
+
+        Args:
+            stmt (VarStmt): The variable declaration statement to execute
+        """
+        value = None        # default value for the variable
+        if stmt.initializer is not None:
+            value = self.evaluate(stmt.initializer) # evaluate the initializer expression
+            
+        # define the variable in the environment with its value
+        self.environment.define(stmt.name.lexeme, value)
+        return None
+        
+        
+        
+        
+        
+    def visit_variable(self, expr):
+        """
+        Evaluates a variable expression by retrieving its value from the environment.
+
+        Args:
+            expr (VariableExpr): The variable expression to evaluate.
+        """
+        return self.environment.get(expr.name)
     
     
     

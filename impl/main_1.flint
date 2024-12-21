@@ -1,1 +1,7 @@
-var a = 10; // valid declaration
+var a = 1;
+var b = 2;
+
+var c;
+print c;    // returns none
+
+print a + b;    // prints the sum

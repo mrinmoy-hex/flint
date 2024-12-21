@@ -122,7 +122,7 @@ class Parser:
         
         
         # return a new variable declaration statement node
-        return Stmt.Var(name, initializer)
+        return Var(name, initializer)
         
     
     
@@ -330,7 +330,7 @@ class Parser:
         
         # handle variable access by identifier
         if self.match(TokenType.IDENTIFIER):
-            return Expr.Variable(self.previous())
+            return Variable(self.previous())
         
         
         if self.match(TokenType.LEFT_PAREN):

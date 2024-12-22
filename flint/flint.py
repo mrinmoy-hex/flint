@@ -6,7 +6,6 @@ import sys
 from tools.raise_error import *
 from flint.scanner import Scanner
 from flint.parser import Parser
-# from tools.ast_printer import AstPrinter
 from flint.interpreter import Interpreter
 
 class Flint:
@@ -51,7 +50,7 @@ class Flint:
     def run_prompt():
         print("Flint REPL (type 'exit' to quit)")
         while True:
-            line = input("> ")
+            line = input(">>> ")
             if line == "" or line == "exit":
                 break
             Flint.run(line)

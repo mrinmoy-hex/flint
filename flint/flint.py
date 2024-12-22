@@ -7,11 +7,13 @@ from tools.raise_error import *
 from flint.scanner import Scanner
 from flint.parser import Parser
 from flint.interpreter import Interpreter
+from flint.environment import Environment   
 
 class Flint:
 
     had_error = False
     had_runtime_error = False
+    global_environment = Environment()      # shared environment for REPL
 
     @staticmethod
     def main() -> None:
@@ -44,7 +46,7 @@ class Flint:
         try:
             with open(path, 'r', encoding='utf-8') as file:
                 content = file.read()
-                Flint.run(content)
+                Flint.run(content, Flint.global_environment)
 
 
         except IOError as e:
@@ -79,12 +81,12 @@ class Flint:
             line = input(">>> ")
             if line == "" or line == "exit":
                 break
-            Flint.run(line)
+            Flint.run(line, Flint.global_environment)
             Flint.had_error = False
 
 
     @staticmethod
-    def run(source):
+    def run(source, environment):
         """
         Compiles and executes the given source code.
         """
@@ -98,7 +100,7 @@ class Flint:
         if statements is None or had_error:
             return
     
-        interpreter = Interpreter()
+        interpreter = Interpreter(environment)  # use shared environment
     
         # Try to interpret the valid expression
         try:

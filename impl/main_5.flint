@@ -1,0 +1,6 @@
+var a = "global a";
+{
+    var a = "block a";  // Modify the global variable 'a'
+    print a;  // Prints "block a"
+}
+print a;  // Prints "block a"

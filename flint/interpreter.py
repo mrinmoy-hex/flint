@@ -6,9 +6,14 @@ from tools.raise_error import *
 
 
 class Interpreter():
-    def __init__(self):
-        # Initialize the environment to store variables
-        self.environment = Environment()
+    def __init__(self, environment):
+        """
+        Initialize the interpreter with the given environment.
+        
+        Args:
+            environment (Environment): The environment to use for variable storage.
+        """
+        self.environment = environment
     
     
     ############################################

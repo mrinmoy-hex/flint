@@ -49,7 +49,7 @@ class Flint:
                 Flint.run(content, Flint.global_environment)
                 
             # Log the environment state after running the file
-            Flint.global_environment.log_environment("debug/environment_state.json")
+            # Flint.global_environment.log_environment("debug/environment_state.json")
 
 
 
@@ -114,7 +114,7 @@ class Flint:
             runtime_error(runtime_err)
             
         # After execution, log the environment state
-        environment.log_environment("debug/environment_state.json")
+        # environment.log_environment("debug/environment_state.json")
 
 
 if __name__ == '__main__':

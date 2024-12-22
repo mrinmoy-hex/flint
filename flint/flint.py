@@ -47,11 +47,15 @@ class Flint:
             with open(path, 'r', encoding='utf-8') as file:
                 content = file.read()
                 Flint.run(content, Flint.global_environment)
+                
+            # Log the environment state after running the file
+            Flint.global_environment.log_environment("debug/environment_state.json")
+
 
 
         except IOError as e:
             print(f"Error reading file: {e}")
-            exit(64)    # std exit code i found
+            exit(64)    # std exit code for file-related erros
 
         # indicate an error in the exit code
         if Flint.had_error:
@@ -108,6 +112,9 @@ class Flint:
         except RuntimeError as runtime_err:
             from tools.raise_error import runtime_error
             runtime_error(runtime_err)
+            
+        # After execution, log the environment state
+        environment.log_environment("debug/environment_state.json")
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 from flint.runtime_error import CustomRunTimeError
+import json
 
 
 class Environment:
@@ -43,8 +44,11 @@ class Environment:
         Raises:
             RuntimeError: If the variable is not defined in the environment.
         """
-        if name in self.values:
-            self.values[name] = value
+        lexeme = name.lexeme
+        
+        if lexeme in self.values:
+            # Variable exists in current environment, reassigned
+            self.values[lexeme] = value
             return
         
         if self.enclosing is not None:
@@ -52,7 +56,7 @@ class Environment:
             return
         
         
-        raise CustomRunTimeError(name, f"Undefined variable: '{name.lexeme}.'")    
+        raise CustomRunTimeError(name, f"Undefined variable: '{lexeme}.'")    
     
     
     
@@ -75,4 +79,13 @@ class Environment:
             raise CustomRunTimeError(name, f"Variable '{name.lexeme}' already defined in the current scope.")
     
         self.values[name.lexeme] = value
+        
+        
+    def log_environment(self, filepath):
+        try:
+            with open(filepath, 'w') as file:
+                json.dump(self.values, file, indent=4)
+            print(f"Environment state save to: {filepath}.")
+        except Exception as e:
+            print(f"Error logging environment state: {e}")
 

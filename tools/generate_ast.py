@@ -26,9 +26,20 @@ class GenerateAst:
                 
                 # Generate AST classes
                 for type_definition in types:
+                    # Skip empty lines
+                    if not type_definition.strip():
+                        continue
+                    
+                    # Ensure the type definition is correctly formatted
+                    parts = type_definition.split(":")
+                    if len(parts) != 2:
+                        print(f"Skipping invalid type definition: {type_definition}")
+                        continue
+                    
                     class_name, fields = map(str.strip, type_definition.split(":"))
                     GenerateAst.define_type(file, base_name, class_name, fields)
                 print(f"AST classes generated in {path}")
+                
         except Exception as e:
             print(f"Error: {e}", file=sys.stderr)
             sys.exit(1)
@@ -85,6 +96,7 @@ class GenerateAst:
 
         # define statements
         GenerateAst.define_ast(output_dir, "Stmt", [
+            "Block       : List[Stmt] statements", 
             "Expression  : Expr expression",
             "Print       : Expr expression",
             "Var         : Token name, Expr initializer "   # for variable declaration

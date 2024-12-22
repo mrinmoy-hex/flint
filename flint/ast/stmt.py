@@ -6,6 +6,9 @@ class Stmt:
         raise NotImplementedError()
 
 class StmtVisitor:
+    def visit_block(self, block):
+        raise NotImplementedError()
+
     def visit_expression(self, expression):
         raise NotImplementedError()
 
@@ -14,6 +17,13 @@ class StmtVisitor:
 
     def visit_var(self, var):
         raise NotImplementedError()
+
+class Block(Stmt):
+    def __init__(self, statements):
+        self.statements = statements
+
+    def accept(self, visitor):
+        return visitor.visit_block(self)
 
 class Expression(Stmt):
     def __init__(self, expression):

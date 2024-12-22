@@ -2,9 +2,10 @@ from flint.runtime_error import CustomRunTimeError
 
 
 class Environment:
-    def __init__(self):
+    def __init__(self, enclosing=None):
         # dictionary to store variable names and their associated values
         self.values = {}
+        self.enclosing = enclosing      # reference to the outer scope (None for global scope)
         
         
     def get(self, name):
@@ -24,6 +25,9 @@ class Environment:
             # if the var exists in the current env, return its' value
             return self.values[lexeme]
         
+        if self.enclosing is not None:
+            return self.enclosing.get(name)     # search in enclosing scope
+        
         # if not found, raise an error
         raise CustomRunTimeError(name, f"Undefined variable '{lexeme}'.")
 
@@ -42,6 +46,11 @@ class Environment:
         if name in self.values:
             self.values[name] = value
             return
+        
+        if self.enclosing is not None:
+            self.enclosing.assign(name, value)
+            return
+        
         
         raise CustomRunTimeError(name, f"Undefined variable: '{name.lexeme}.'")    
     

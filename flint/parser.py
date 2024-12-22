@@ -82,6 +82,10 @@ class Parser:
         """
         if self.match(TokenType.KEYWORD_PRINT):
             return self.print_statement()
+        
+        if self.match(TokenType.LEFT_BRACE):
+            return Block(self.block())
+        
         return self.expression_statement()
     
     
@@ -148,7 +152,27 @@ class Parser:
         """
         expr = self.expression()
         self.consume(TokenType.SEMICOLON, "Expect ',' after expression")
-        return Stmt.Expression(expr)
+        return Expression(expr)
+    
+    
+    def block(self):
+        """
+        Parses a block of code enclosed in braces and returns a list of statements.
+        This method continues to parse declarations and add them to the statements
+        list until it encounters a right brace or reaches the end of the input.
+        Returns:
+            list: A list of parsed statements within the block.
+        Raises:
+            ParseError: If the right brace '}' is not found after the block.
+        """
+        statements = []
+        
+        while not self.check(TokenType.RIGHT_BRACE) and not self.is_at_end():
+            statements.append(self.declaration())
+            
+        self.consume(TokenType.RIGHT_BRACE, "Expect '}' after block.")
+        return statements
+    
     
     
     

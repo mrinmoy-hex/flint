@@ -7,11 +7,13 @@ from tools.raise_error import *
 from flint.scanner import Scanner
 from flint.parser import Parser
 from flint.interpreter import Interpreter
+from flint.environment import Environment   
 
 class Flint:
 
     had_error = False
     had_runtime_error = False
+    global_environment = Environment()      # shared environment for REPL
 
     @staticmethod
     def main() -> None:
@@ -44,12 +46,16 @@ class Flint:
         try:
             with open(path, 'r', encoding='utf-8') as file:
                 content = file.read()
-                Flint.run(content)
+                Flint.run(content, Flint.global_environment)
+                
+            # Log the environment state after running the file
+            Flint.global_environment.log_environment("debug/environment_state.json")
+
 
 
         except IOError as e:
             print(f"Error reading file: {e}")
-            exit(64)    # std exit code i found
+            exit(64)    # std exit code for file-related erros
 
         # indicate an error in the exit code
         if Flint.had_error:
@@ -79,12 +85,12 @@ class Flint:
             line = input(">>> ")
             if line == "" or line == "exit":
                 break
-            Flint.run(line)
+            Flint.run(line, Flint.global_environment)
             Flint.had_error = False
 
 
     @staticmethod
-    def run(source):
+    def run(source, environment):
         """
         Compiles and executes the given source code.
         """
@@ -98,7 +104,7 @@ class Flint:
         if statements is None or had_error:
             return
     
-        interpreter = Interpreter()
+        interpreter = Interpreter(environment)  # use shared environment
     
         # Try to interpret the valid expression
         try:
@@ -106,6 +112,9 @@ class Flint:
         except RuntimeError as runtime_err:
             from tools.raise_error import runtime_error
             runtime_error(runtime_err)
+            
+        # After execution, log the environment state
+        environment.log_environment("debug/environment_state.json")
 
 
 if __name__ == '__main__':

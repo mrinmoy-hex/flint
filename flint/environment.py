@@ -61,9 +61,18 @@ class Environment:
         """
         Defines a new variable in the environment.
         
+        Prevents redefinition of variables in the same scope.
+        
         Args:
             name (str): The name of the variable.
             value (any): The value associated with the variable.
+        
+        Raises:
+            RuntimeError: If the variable is already defined in the current scope.
+    
         """
-        self.values[name] = value
+        if name.lexeme in self.values:
+            raise CustomRunTimeError(name, f"Variable '{name.lexeme}' already defined in the current scope.")
+    
+        self.values[name.lexeme] = value
 

@@ -152,7 +152,7 @@ class Interpreter():
             value = self.evaluate(stmt.initializer) # evaluate the initializer expression
             
         # define the variable in the environment with its value
-        self.environment.define(stmt.name.lexeme, value)
+        self.environment.define(stmt.name, value)
         return None
         
         

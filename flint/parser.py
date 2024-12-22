@@ -13,7 +13,7 @@ class Parser:
         ParseError: Custom exception for parsing errors.
     """
     
-    def __init__(self, tokens) -> None:
+    def __init__(self, tokens, is_repl_mode) -> None:
         """
         Initialize the parser with a list of tokens.
 
@@ -22,6 +22,7 @@ class Parser:
         """
         self._tokens = tokens   
         self.current = 0       # tracks the current pos in the token list
+        self.is_repl_mode = is_repl_mode
         
         
     
@@ -151,7 +152,11 @@ class Parser:
             ParseError: If the semicolon is not found after the expression.
         """
         expr = self.expression()
-        self.consume(TokenType.SEMICOLON, "Expect ',' after expression")
+        self.consume(TokenType.SEMICOLON, "Expect ';' after expression")
+        
+        if self.is_repl_mode:  # Automatically print results in REPL mode
+            return Print(expr)
+        
         return Expression(expr)
     
     
@@ -341,6 +346,7 @@ class Parser:
             return self.advance()
         else:
             raise self.error(self.peek(), message)
+
         
         
     
@@ -364,27 +370,34 @@ class Parser:
     # Imp. methods
     #########################################
     
+    def binary_expr(self, sub_expr_method, *operators):
+        """
+        Parse a binary expression.
+    
+        Args:
+            sub_expr_method (callable): The method to parse the sub-expressions (e.g., self.unary).
+            operators (TokenType): The binary operators to handle at this level.
+
+            Returns:
+            Expr: The parsed binary expression or a single sub-expression.
+        """
+        expr = sub_expr_method()
+
+        while self.match(*operators):
+            operator = self.previous()
+            right = sub_expr_method()
+            expr = Binary(expr, operator, right)
+
+        return expr
+    
     
     def term(self):
-        expr = self.factor()
-        
-        while self.match(TokenType.MINUS, TokenType.PLUS):
-            operator = self.previous()
-            right = self.factor()
-            expr = Binary(expr, operator, right)
-            
-        return expr
+        return self.binary_expr(self.factor, TokenType.PLUS, TokenType.MINUS)
+
     
     
     def factor(self):
-        expr = self.unary()
-        
-        while self.match(TokenType.ASTERISK, TokenType.FORWARD_SLASH):
-            operator = self.previous()
-            right = self.unary()
-            expr = Binary(expr, operator, right)
-            
-        return expr
+        return self.binary_expr(self.unary, TokenType.ASTERISK, TokenType.FORWARD_SLASH)
     
     
     def unary(self):
@@ -426,9 +439,8 @@ class Parser:
         
         if self.match(TokenType.LEFT_PAREN):
             expr = self.expression()
-            self.consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.")
+            self.consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.")  # Ensure closing parenthesisreturn expr
             return expr
-            # return Grouping(expr)
         
         # if none above matches, we've an error
         self.error(self.peek(), "Expect expression.")

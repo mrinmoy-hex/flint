@@ -15,6 +15,20 @@ class Flint:
 
     @staticmethod
     def main() -> None:
+        """
+        The main entry point for the Flint application.
+
+        This function handles the command-line arguments and determines whether to
+        run a script file or enter REPL (Read-Eval-Print Loop) mode.
+
+        Usage:
+            Flint [script]
+
+        If a script file is provided as an argument, it runs the script.
+        If no arguments are provided, it starts the REPL mode.
+
+        Exits with status code 64 if more than one argument is provided.
+        """
         if len(sys.argv) > 2:
             print("Usage: Flint [script]")
             sys.exit(64)
@@ -48,6 +62,18 @@ class Flint:
 
     @staticmethod
     def run_prompt():
+        """
+        Starts a Read-Eval-Print Loop (REPL) for the Flint programming language.
+
+        This function continuously prompts the user for input, evaluates the input
+        using the Flint interpreter, and prints the result. The loop terminates
+        when the user inputs an empty string or 'exit'.
+
+        Usage:
+            run_prompt()
+        Note:
+            This function sets `Flint.had_error` to False after each command execution.
+        """
         print("Flint REPL (type 'exit' to quit)")
         while True:
             line = input(">>> ")

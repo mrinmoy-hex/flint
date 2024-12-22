@@ -46,10 +46,48 @@ class Interpreter():
         
         stmt.accept(self)   # Delegate execution to the statement's accept method.
             
+            
+    def execute_block(self, statements, environment):
+        """
+        Executes a block of statements in a given environment.
+    
+        Args:
+            statements (list): The statements to execute.
+            environment (Environment): The environment for the block's scope.
+        """
+        previous = self.environment
+        try:
+            self.environment = environment      # switch to new environment
+            
+            for statement in statements:
+                self.execute(statement)         # execute each statement in the block
+        finally:
+            self.environment = previous         # restore the previous environment
+            
+            
+            
     
     ############################################
-    # Visitor Methods for Expression Types
+    # Visitor Methods 
     ############################################
+    
+    def visit_block(self, stmt):
+        """
+        Visits a block statement, creating a new environment for the block and executing
+        the statements within it.
+
+        Args:
+            stmt: The block statement to be visited, which contains a list of statements.
+
+        Returns:
+            None
+        """
+        # create a new environment that chains to the current one
+        environment = Environment(self.environment)
+        self.execute_block(stmt.statements, environment)
+        return None
+    
+    
     
     def visit_literal(self, expr):
         """Evaluates literal expression"""
@@ -266,6 +304,15 @@ class Interpreter():
             
             
     def stringify(self, obj):
+        """
+        Converts the given object to its string representation.
+        Args:
+            obj: The object to be converted to a string. It can be of any type.
+        Returns:
+            str: The string representation of the object. If the object is None, 
+                    it returns "nil". If the object is a float and ends with ".0", 
+                    the ".0" part is removed from the string representation.
+        """
         if obj is None:
             return "nil"
         

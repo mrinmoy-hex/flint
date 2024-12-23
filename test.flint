@@ -1,6 +1,0 @@
-var name = "mrinmoy";
-print name;
-
-var num1 = 3;
-var num2 = 4;
-print num1 + num2;

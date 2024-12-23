@@ -1,4 +1,4 @@
-name: Build Documentation
+name: Build Sphinx Documentation
 
 on:
   push:
@@ -11,29 +11,41 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python-version: ["3.12"]
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    # Set up Python
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
       with:
-        python-version: '3.x'
+        python-version: ${{ matrix.python-version }}
 
+    # Install Poetry
     - name: Install Poetry
-      uses: poetry-community/action-poetry@v2
-      with:
-        poetry-version: 'latest'
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
 
+    # Add Poetry to PATH
+    - name: Add Poetry to PATH
+      run: |
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    # Install dependencies using Poetry
     - name: Install dependencies
       run: |
         poetry install
 
+    # Build Sphinx Documentation
     - name: Build Sphinx Documentation
       run: |
         poetry run sphinx-build -b html docs/source docs/build
-     
+
+    # Optionally, upload the generated documentation as an artifact
     - name: Upload documentation as artifact
       uses: actions/upload-artifact@v3
       with:

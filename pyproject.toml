@@ -9,6 +9,8 @@ packages = [{ include = "flint" }]
 [tool.poetry.dependencies]
 python = "^3.12"
 pytest = "^8.3.4"
+sphinx = "^8.1.3"
+sphinx-rtd-theme = "^3.0.2"
 
 [tool.poetry.scripts]
 flint = "flint.flint:Flint.main"

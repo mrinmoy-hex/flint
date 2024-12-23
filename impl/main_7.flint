@@ -1,0 +1,18 @@
+var a = 1;
+{
+    var a = a + 2;
+    print a;
+}
+
+var num;
+num = 44;
+print num;
+
+var num2 = 12;
+print num + num2;
+
+var greeting = "Hello, Flint!";
+{
+    var greeting = greeting + " How are you?";
+    print greeting; // Output: Hello, Flint! How are you?
+}

@@ -1,53 +1,26 @@
-name: Build Sphinx Documentation
+name: "Sphinx: Render docs"
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    strategy:
-      matrix:
-        python-version: ["3.12"]
-
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
-
-    # Set up Python
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
-
-    # Install Poetry
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-
-    # Add Poetry to PATH
-    - name: Add Poetry to PATH
-      run: |
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    # Install dependencies using Poetry
-    - name: Install dependencies
-      run: |
-        poetry install
-
-    # Build Sphinx Documentation
-    - name: Build Sphinx Documentation
-      run: |
-        poetry run sphinx-build -b html docs/source docs/build
-
-    # Optionally, upload the generated documentation as an artifact
-    - name: Upload documentation as artifact
-      uses: actions/upload-artifact@v3
+        persist-credentials: false
+    - name: Build HTML
+      uses: ammaraskar/sphinx-action@master
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
       with:
-        name: docs
-        path: docs/build
+        name: html-docs
+        path: docs/build/html/
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/master'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/build/html

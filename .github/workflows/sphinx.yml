@@ -1,0 +1,41 @@
+name: Build Documentation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install Poetry
+      uses: python-poetry/poetry-action@v2
+      with:
+        poetry-version: 'latest'
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Build Sphinx Documentation
+      run: |
+        poetry run sphinx-build -b html docs/source docs/build
+     
+    - name: Upload documentation as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: docs
+        path: docs/build

@@ -22,7 +22,7 @@ jobs:
         python-version: '3.x'
 
     - name: Install Poetry
-      uses: python-poetry/poetry-action@v2
+      uses: poetry-community/action-poetry@v2
       with:
         poetry-version: 'latest'
 

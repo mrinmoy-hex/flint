@@ -27,7 +27,8 @@ def report(line: int, pos_where: str, message: str):
     
 def runtime_error(error: CustomRunTimeError) -> None:
     """Handles runtime errors by printing the error message."""
+    global had_error
     print(f"[line {error.token.line}] {error.message}\n", file=sys.stderr)
-    had_runtime_error = True
+    had_error = True
     
 

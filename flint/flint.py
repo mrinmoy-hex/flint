@@ -85,18 +85,18 @@ class Flint:
             line = input(">>> ")
             if line == "" or line == "exit":
                 break
-            Flint.run(line, Flint.global_environment)
+            Flint.run(line, Flint.global_environment, is_repl_mode=True)
             Flint.had_error = False
 
 
     @staticmethod
-    def run(source, environment):
+    def run(source, environment, is_repl_mode=False):
         """
         Compiles and executes the given source code.
         """
         scanner = Scanner(source)
         tokens = scanner.scan_tokens()
-        parser = Parser(tokens)
+        parser = Parser(tokens, is_repl_mode=is_repl_mode)
     
         statements = parser.parse()
     

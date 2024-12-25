@@ -1,0 +1,22 @@
+var num = 5;
+
+if (num == 4 or num >= 4) {
+
+    // if statement implementation in Flint
+    print "If statement is evaluated";
+    print "The number is 4";
+} else {
+    print "Inside else statement";
+    print "Other number";
+}
+
+// implementation of while and for loop
+
+while (num < 10) {
+    print "hello from while loop";
+    num = num + 1;
+}
+
+for (var i = 0; i < 10; i = i + 1) {
+    print i;
+}

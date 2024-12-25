@@ -286,9 +286,3 @@ class Scanner:
                 self.line += 1
                 
             self.advance()      # consume the character
-            
-
-
-
-
-

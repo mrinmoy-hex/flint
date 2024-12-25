@@ -71,9 +71,7 @@ class Parser:
             return None
         
         
-        
-        
-    
+
     def statement(self):
         """
         Parse a single statement.
@@ -81,6 +79,16 @@ class Parser:
         Returns:
             Stmt: The parsed statement as an AST node.
         """
+        
+        if self.match(TokenType.KEYWORD_FOR):
+            return self.for_statement()
+        
+        if self.match(TokenType.KEYWORD_IF):
+            return self.if_statement()
+        
+        if self.match(TokenType.KEYWORD_WHILE):
+            return self.while_statement()
+        
         if self.match(TokenType.KEYWORD_PRINT):
             return self.print_statement()
         
@@ -88,6 +96,65 @@ class Parser:
             return Block(self.block())
         
         return self.expression_statement()
+    
+    
+    def for_statement(self):
+        self.consume(TokenType.LEFT_PAREN, "Expect '(' after 'for'.")
+        
+        # parse the initializer
+        if self.match(TokenType.SEMICOLON):
+            initializer = None
+        elif self.match(TokenType.KEYWORD_VARIABLE):
+            initializer = self.var_declaration()
+        else:
+            initializer = self.expression_statement()    
+            
+        # parse the condition
+        condition = None
+        if not self.check(TokenType.SEMICOLON):
+            condition = self.expression()
+        self.consume(TokenType.SEMICOLON, "Expect ';' after loop condition.")
+        
+        
+        # parse the increment
+        increment = None
+        if not self.check(TokenType.RIGHT_PAREN):
+            increment = self.expression()
+        self.consume(TokenType.RIGHT_PAREN, "Expect ')' after for clauses.")
+        
+        # parse the body (loop body)
+        body = self.statement()
+        
+        # Desugar into a while loop
+        # If there's an increment, append it to the body
+        if increment is not None:
+            body = Block([body, Expression(increment)])
+            
+        # if no condition is specified, use `True` as the default condition
+        if condition is None:
+            condition = Literal(True)
+        body = While_stmt(condition, body)
+        
+        # if there's an initializer, execute it before the loop
+        if initializer is not None:
+            body = Block([initializer, body])
+        
+        return body
+        
+    
+    
+    
+    def if_statement(self):
+        self.consume(TokenType.LEFT_PAREN, "Expect '(' after 'if'.")
+        condition = self.expression()
+        self.consume(TokenType.RIGHT_PAREN, "Expect ')' after if condition.")
+        
+        then_branch = self.statement()
+        else_branch = None
+        if self.match(TokenType.KEYWORD_ELSE):
+            else_branch = self.statement()
+        
+        return If_stmt(condition, then_branch, else_branch)
     
     
     
@@ -133,9 +200,19 @@ class Parser:
         
         # return a new variable declaration statement node
         return Var(name, initializer)
+    
         
     
+    def while_statement(self):
+        self.consume(TokenType.LEFT_PAREN, "Expect '(' after 'while'.")
+        condition = self.expression()
+        self.consume(TokenType.RIGHT_PAREN, "Expect ')' after condition.")
+        body = self.statement()
+        
+        return While_stmt(condition, body)
     
+    
+        
     
     
     def expression_statement(self):
@@ -180,22 +257,8 @@ class Parser:
     
     
     
-    
     def assignment(self):
-        """
-        Parses an assignment expression.
-        This method first parses an equality expression. If the next token is an
-        equal sign, it recursively parses the right-hand side of the assignment.
-        If the left-hand side of the assignment is a variable, it creates and
-        returns an Assign expression. Otherwise, it raises an error indicating
-        an invalid assignment target.
-        Returns:
-            Expr: The parsed expression, which could be an equality expression
-                or an assignment expression.
-        Raises:
-            ParseError: If the assignment target is invalid.
-        """
-        expr = self.equality()
+        expr = self.or_logic()
         
         if self.match(TokenType.EQUAL):
             equals = self.previous()                            # store the = token
@@ -209,8 +272,28 @@ class Parser:
             
         return expr                                             # returns the original expression if there's no assignment
             
+        
+    def or_logic(self):
+        expr = self.and_logic()
+        
+        while self.match(TokenType.KEYWORD_OR):
+            operator = self.previous()
+            right = self.and_logic()
+            expr = Logical(expr, operator, right)   # follows left-associative structure
             
+        return expr
+        
     
+    def and_logic(self):
+        expr = self.equality()
+        
+        while self.match(TokenType.KEYWORD_AND):
+            operator = self.previous()
+            right = self.equality()
+            expr = Logical(expr, operator, right)
+            
+        return expr
+        
     
     
     def equality(self):

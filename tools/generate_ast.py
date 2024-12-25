@@ -90,6 +90,7 @@ class GenerateAst:
             "Binary   : Expr left, Token operator, Expr right",
             "Grouping : Expr expression",
             "Literal  : Object value",
+            "Logical  : Expr left, Token operator, Expr right",
             "Unary    : Token operator, Expr right",
             "Variable : Token name"     # for variabel usage
         ])
@@ -98,8 +99,11 @@ class GenerateAst:
         GenerateAst.define_ast(output_dir, "Stmt", [
             "Block       : List[Stmt] statements", 
             "Expression  : Expr expression",
+            "If_stmt     : Expr condition, Stmt then_branch,"+
+                         " Stmt else_branch",
             "Print       : Expr expression",
-            "Var         : Token name, Expr initializer "   # for variable declaration
+            "Var         : Token name, Expr initializer ",   # for variable declaration
+            "While_stmt       : Expr condition, Stmt body"
         ])
 
 

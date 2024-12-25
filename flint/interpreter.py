@@ -76,6 +76,17 @@ class Interpreter():
     # Visitor Methods 
     ############################################
     
+    def visit_if_stmt(self, stmt):
+        if self.is_truthy(self.evaluate(stmt.condition)):
+            self.execute(stmt.then_branch)
+            
+        elif stmt.else_branch is not None:
+            self.execute(stmt.else_branch)
+            
+        return None
+    
+    
+    
     def visit_block(self, stmt):
         """
         Visits a block statement, creating a new environment for the block and executing
@@ -97,6 +108,24 @@ class Interpreter():
     def visit_literal(self, expr):
         """Evaluates literal expression"""
         return expr.value
+    
+    
+    def visit_logical(self, expr):
+        left = self.evaluate(expr.left)
+        
+        if expr.operator.type == TokenType.KEYWORD_OR:
+            # Short-circuit for 'or'
+            if self.is_truthy(left): 
+                return left
+        else:   # This implies the operator is AND
+            # Short-circuit for 'and'
+            if not self.is_truthy(left): 
+                return left
+            
+        # Evaluate the right operand if needed    
+        return self.evaluate(expr.right)
+        
+        
     
     
     def visit_grouping(self, expr):
@@ -154,6 +183,15 @@ class Interpreter():
         # define the variable in the environment with its value
         self.environment.define(stmt.name, value)
         return None
+    
+    
+    def visit_while_stmt(self, stmt):
+        
+        while self.is_truthy(self.evaluate(stmt.condition)):
+            self.execute(stmt.body)
+            
+        return None
+    
         
         
     def visit_assign(self, expr):

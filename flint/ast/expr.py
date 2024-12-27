@@ -15,6 +15,9 @@ class ExprVisitor:
     def visit_grouping(self, grouping):
         raise NotImplementedError()
 
+    def visit_call(self, call):
+        raise NotImplementedError()
+
     def visit_literal(self, literal):
         raise NotImplementedError()
 
@@ -50,6 +53,15 @@ class Grouping(Expr):
 
     def accept(self, visitor):
         return visitor.visit_grouping(self)
+
+class Call(Expr):
+    def __init__(self, callee, paren, arguments):
+        self.callee = callee
+        self.paren = paren
+        self.arguments = arguments
+
+    def accept(self, visitor):
+        return visitor.visit_call(self)
 
 class Literal(Expr):
     def __init__(self, value):

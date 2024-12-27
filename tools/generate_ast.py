@@ -89,6 +89,7 @@ class GenerateAst:
             "Assign   : Token name, Expr value",  # for variable assignment
             "Binary   : Expr left, Token operator, Expr right",
             "Grouping : Expr expression",
+            "Call     : Expr callee, Token paren, List[Expr] arguments",
             "Literal  : Object value",
             "Logical  : Expr left, Token operator, Expr right",
             "Unary    : Token operator, Expr right",

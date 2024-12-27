@@ -3,6 +3,8 @@ from flint.token_types import TokenType
 from flint.runtime_error import CustomRunTimeError
 from flint.environment import Environment
 from tools.raise_error import *
+from flint.flint_callable import FlintCallable
+import time
 
 
 class Interpreter():
@@ -13,7 +15,42 @@ class Interpreter():
         Args:
             environment (Environment): The environment to use for variable storage.
         """
-        self.environment = environment
+        self.environments = environment # current environment for variable storage 
+        
+        self.globals = Environment()    # global environment for the interpreter
+        self.environment = self.globals # start with the global environment
+        
+        # define a native function "clock"
+        self.globals.define("clock", FlintCallable())
+        
+        
+        
+        
+    ############################################
+    # FlintCallable methods
+    ############################################
+        
+    def arity(self) -> int:
+        """
+        Returns the number of arguments the callable expects
+        """
+        return 0
+    
+    
+    def call(interpreter, arguments):
+        """
+        Excutes the callable with the given interpreter and arguments
+        """
+        return time.time() / 1000.0
+    
+    
+    def to_string(self) -> str:
+        """
+        Returns a string representation of the callable
+        """
+        return "<native fn>"
+        
+        
     
     
     ############################################
@@ -60,14 +97,14 @@ class Interpreter():
             statements (list): The statements to execute.
             environment (Environment): The environment for the block's scope.
         """
-        previous = self.environment
+        previous = self.environments
         try:
-            self.environment = environment      # switch to new environment
+            self.environments = environment      # switch to new environment
             
             for statement in statements:
                 self.execute(statement)         # execute each statement in the block
         finally:
-            self.environment = previous         # restore the previous environment
+            self.environments = previous         # restore the previous environment
             
             
             
@@ -99,7 +136,7 @@ class Interpreter():
             None
         """
         # create a new environment that chains to the current one
-        environment = Environment(self.environment)
+        environment = Environment(self.environments)
         self.execute_block(stmt.statements, environment)
         return None
     
@@ -181,7 +218,7 @@ class Interpreter():
             value = self.evaluate(stmt.initializer) # evaluate the initializer expression
             
         # define the variable in the environment with its value
-        self.environment.define(stmt.name, value)
+        self.environments.define(stmt.name, value)
         return None
     
     
@@ -207,7 +244,7 @@ class Interpreter():
             The evaluated value of the assignment expression.
         """
         value = self.evaluate(expr.value)
-        self.environment.assign(expr.name, value)
+        self.environments.assign(expr.name, value)
         return value
         
         
@@ -220,7 +257,7 @@ class Interpreter():
         Args:
             expr (VariableExpr): The variable expression to evaluate.
         """
-        return self.environment.get(expr.name)
+        return self.environments.get(expr.name)
     
     
     
@@ -308,6 +345,30 @@ class Interpreter():
         
         # unreachable if the expression is valid
         return None
+    
+    
+    
+    def visit_call(self, expr):
+        """
+        Handles a call expression by evaluating the callee and arguments, and then calling the function.
+        """
+        callee = self.evaluate(expr.callee)
+        
+        arguments = []
+        for argument in expr.arguments:
+            arguments.append(self.evaluate(argument))
+            
+        # check if the callee is a callable
+        if not isinstance(callee, FlintCallable):
+            raise CustomRunTimeError(expr.paren, "Can only call functions and classes.")
+        
+            
+        function = callee   # the callee is a callable
+        # check if the number of arguments passed is correct
+        if len(arguments) != function.arity():
+            raise CustomRunTimeError(expr.paren, f"Expected {function.arity()} arguments but got {len(arguments)}.")
+        
+        return function.call(self, arguments)
     
     
     

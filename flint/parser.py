@@ -490,7 +490,40 @@ class Parser:
             expr = Unary(operator, right)    
             return expr
         
-        return self.primary()
+        return self.call()
+    
+    
+    def call(self):
+        """
+        Parse a call expression.
+        """
+        expr = self.primary()
+        
+        while True:
+            if self.match(TokenType.LEFT_PAREN):
+                expr = self.finish_call(expr)
+            else:
+                break
+        
+        return expr
+    
+    
+    def finish_call(self, callee):
+        """
+        Parse the arguments for a function call expression.
+        """
+        if not self.check(TokenType.RIGHT_PAREN):
+            arguments = [self.expression()]     # parse the first argument
+            
+            while self.match(TokenType.COMMA):  # handle subsequent arguments
+                if len(arguments) >= 255:
+                    self.error(self.peek(), "Cannot have more than 255 arguments.")
+                    
+                arguments.append(self.expression())
+            # ensure the closing parenthesis     
+            paren = self.consume(TokenType.RIGHT_PAREN, "Expect ')' after arguments.")
+            return Call(callee, paren, arguments)
+    
     
     
     def primary(self):

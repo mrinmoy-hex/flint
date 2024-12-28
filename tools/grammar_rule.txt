@@ -23,7 +23,8 @@ primary        → "true" | "false" | "nil"
 
 program        → declaration* EOF ;
 
-declaration    → varDecl
+declaration    → funDecl 
+               |varDecl
                | statement ;
 
 statement      → exprStmt
@@ -32,6 +33,12 @@ statement      → exprStmt
                | printStmt
                | whileStmt
                | block ; ;
+
+funDecl        → "fn" function ;
+
+function       → IDENTIFIER "(" parameters? ")" block ;
+
+parameters     → IDENTIFIER ( "," IDENTIFIER )* ;
 
 forStmt        → "for" "(" ( varDecl | exprStmt | ";" )
                  expression? ";"

@@ -75,10 +75,11 @@ class Environment:
             RuntimeError: If the variable is already defined in the current scope.
     
         """
-        if name.lexeme in self.values:
-            raise CustomRunTimeError(name, f"Variable '{name.lexeme}' already defined in the current scope.")
+        key = name.lexeme if hasattr(name, 'lexeme') else name
+        if key in self.values:
+            raise CustomRunTimeError(name, f"Variable '{key}' already defined in the current scope.")
     
-        self.values[name.lexeme] = value
+        self.values[key] = value
         
         
     def log_environment(self, filepath):

@@ -12,6 +12,9 @@ class StmtVisitor:
     def visit_expression(self, expression):
         raise NotImplementedError()
 
+    def visit_function(self, function):
+        raise NotImplementedError()
+
     def visit_if_stmt(self, if_stmt):
         raise NotImplementedError()
 
@@ -37,6 +40,15 @@ class Expression(Stmt):
 
     def accept(self, visitor):
         return visitor.visit_expression(self)
+
+class Function(Stmt):
+    def __init__(self, name, params, body):
+        self.name = name
+        self.params = params
+        self.body = body
+
+    def accept(self, visitor):
+        return visitor.visit_function(self)
 
 class If_stmt(Stmt):
     def __init__(self, condition, then_branch, else_branch):

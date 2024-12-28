@@ -100,6 +100,7 @@ class GenerateAst:
         GenerateAst.define_ast(output_dir, "Stmt", [
             "Block       : List[Stmt] statements", 
             "Expression  : Expr expression",
+            "Function    : Token name, List[Token] params, List[Stmt] body",
             "If_stmt     : Expr condition, Stmt then_branch,"+
                          " Stmt else_branch",
             "Print       : Expr expression",

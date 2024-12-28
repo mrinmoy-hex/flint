@@ -58,6 +58,10 @@ class Parser:
         """
         
         try:
+            # check if the current token matches a function declaration
+            if self.match(TokenType.KEYWORD_FUNCTION):
+                return self.function("function")
+            
             # check if the current token matches a variable declaration
             if self.match(TokenType.KEYWORD_VARIABLE):
                 return self.var_declaration()
@@ -235,6 +239,35 @@ class Parser:
             return Print(expr)
         
         return Expression(expr)
+    
+    
+    def function(self, kind):
+        """
+        Parse a funtion declaration.
+        """
+        name = self.consume(TokenType.IDENTIFIER, f"Expect {kind} name.")
+        self.consume(TokenType.LEFT_PAREN, f"Expect '(' after {kind} name.")
+        
+        parameters = []        
+        if not self.check(TokenType.RIGHT_PAREN):
+            while True:
+                if len(parameters) >= 255:
+                    self.error(self.peek(), "Can't have more than 255 parameters.")
+                
+                parameters.append(self.consume(TokenType.IDENTIFIER, "Expect parameter name."))
+                
+                # check if there are more parameters
+                if not self.match(TokenType.COMMA):
+                    break
+                
+        # consume the closing parenthesis        
+        self.consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters.")
+        
+        self.consume(TokenType.LEFT_BRACE, f"Expect '{{ ' before {kind} body.")
+        body = self.block()
+        
+        return Function(name, parameters, body)     # return a function statement
+    
     
     
     def block(self):

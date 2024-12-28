@@ -1,0 +1,14 @@
+fn sayHi(first, last) {
+  print "Hi, " + first + " " + last + "!";
+}
+
+fn add(num1, num2) {
+  print (num1 + num2);
+}
+
+// function call
+sayHi("Dear", "Reader");
+add(12, 23);
+
+// native function
+clock();

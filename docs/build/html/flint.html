@@ -1,0 +1,1817 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>flint package - Flint 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Flint 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Flint 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Code Examples</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/flint.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="flint-package">
+<h1>flint package<a class="headerlink" href="#flint-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flint.ast.html">flint.ast package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flint.ast.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flint.ast.html#module-flint.ast.expr">flint.ast.expr module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Assign"><code class="docutils literal notranslate"><span class="pre">Assign</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Assign.accept"><code class="docutils literal notranslate"><span class="pre">Assign.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Binary"><code class="docutils literal notranslate"><span class="pre">Binary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Binary.accept"><code class="docutils literal notranslate"><span class="pre">Binary.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Call"><code class="docutils literal notranslate"><span class="pre">Call</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Call.accept"><code class="docutils literal notranslate"><span class="pre">Call.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Expr"><code class="docutils literal notranslate"><span class="pre">Expr</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Expr.accept"><code class="docutils literal notranslate"><span class="pre">Expr.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor"><code class="docutils literal notranslate"><span class="pre">ExprVisitor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_assign"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_assign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_binary"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_binary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_call"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_grouping"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_grouping()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_literal"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_literal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_logical"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_logical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_unary"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_unary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.ExprVisitor.visit_variable"><code class="docutils literal notranslate"><span class="pre">ExprVisitor.visit_variable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Grouping"><code class="docutils literal notranslate"><span class="pre">Grouping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Grouping.accept"><code class="docutils literal notranslate"><span class="pre">Grouping.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Literal"><code class="docutils literal notranslate"><span class="pre">Literal</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Literal.accept"><code class="docutils literal notranslate"><span class="pre">Literal.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Logical.accept"><code class="docutils literal notranslate"><span class="pre">Logical.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Unary"><code class="docutils literal notranslate"><span class="pre">Unary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Unary.accept"><code class="docutils literal notranslate"><span class="pre">Unary.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.expr.Variable.accept"><code class="docutils literal notranslate"><span class="pre">Variable.accept()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flint.ast.html#module-flint.ast.stmt">flint.ast.stmt module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Block.accept"><code class="docutils literal notranslate"><span class="pre">Block.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Expression"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Expression.accept"><code class="docutils literal notranslate"><span class="pre">Expression.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Function"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Function.accept"><code class="docutils literal notranslate"><span class="pre">Function.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.If_stmt"><code class="docutils literal notranslate"><span class="pre">If_stmt</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.If_stmt.accept"><code class="docutils literal notranslate"><span class="pre">If_stmt.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Print"><code class="docutils literal notranslate"><span class="pre">Print</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Print.accept"><code class="docutils literal notranslate"><span class="pre">Print.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Stmt"><code class="docutils literal notranslate"><span class="pre">Stmt</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Stmt.accept"><code class="docutils literal notranslate"><span class="pre">Stmt.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor"><code class="docutils literal notranslate"><span class="pre">StmtVisitor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_block"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_expression"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_expression()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_function"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_function()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_if_stmt"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_if_stmt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_print"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_var"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_var()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.StmtVisitor.visit_while_stmt"><code class="docutils literal notranslate"><span class="pre">StmtVisitor.visit_while_stmt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Var"><code class="docutils literal notranslate"><span class="pre">Var</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Var.accept"><code class="docutils literal notranslate"><span class="pre">Var.accept()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.While_stmt"><code class="docutils literal notranslate"><span class="pre">While_stmt</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flint.ast.html#flint.ast.stmt.While_stmt.accept"><code class="docutils literal notranslate"><span class="pre">While_stmt.accept()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flint.ast.html#module-flint.ast">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-flint.environment">
+<span id="flint-environment-module"></span><h2>flint.environment module<a class="headerlink" href="#module-flint.environment" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.environment.Environment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.environment.</span></span><span class="sig-name descname"><span class="pre">Environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enclosing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.environment.Environment" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.environment.Environment.assign">
+<span class="sig-name descname"><span class="pre">assign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.environment.Environment.assign" title="Link to this definition">¶</a></dt>
+<dd><p>Assigns a value to an existing variable in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the variable.</p></li>
+<li><p><strong>value</strong> (<em>any</em>) – The value to assign to the variable.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If the variable is not defined in the environment.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.environment.Environment.define">
+<span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.environment.Environment.define" title="Link to this definition">¶</a></dt>
+<dd><p>Defines a new variable in the environment.</p>
+<p>Prevents redefinition of variables in the same scope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the variable.</p></li>
+<li><p><strong>value</strong> (<em>any</em>) – The value associated with the variable.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If the variable is already defined in the current scope.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.environment.Environment.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.environment.Environment.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the value of a variable from the environment.
+:param name: The token representing the variable name.
+:type name: Token</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value of the variable if it exists in the environment.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#flint.runtime_error.CustomRunTimeError" title="flint.runtime_error.CustomRunTimeError"><strong>CustomRunTimeError</strong></a> – If the variable is not found in the environment.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.environment.Environment.log_environment">
+<span class="sig-name descname"><span class="pre">log_environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.environment.Environment.log_environment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.flint">
+<span id="flint-flint-module"></span><h2>flint.flint module<a class="headerlink" href="#module-flint.flint" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.flint.Flint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.flint.</span></span><span class="sig-name descname"><span class="pre">Flint</span></span><a class="headerlink" href="#flint.flint.Flint" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.flint.Flint.global_environment">
+<span class="sig-name descname"><span class="pre">global_environment</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;flint.environment.Environment</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#flint.flint.Flint.global_environment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.flint.Flint.had_error">
+<span class="sig-name descname"><span class="pre">had_error</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#flint.flint.Flint.had_error" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.flint.Flint.had_runtime_error">
+<span class="sig-name descname"><span class="pre">had_runtime_error</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#flint.flint.Flint.had_runtime_error" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint.Flint.main">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flint.flint.Flint.main" title="Link to this definition">¶</a></dt>
+<dd><p>The main entry point for the Flint application.</p>
+<p>This function handles the command-line arguments and determines whether to
+run a script file or enter REPL (Read-Eval-Print Loop) mode.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>Flint [script]</p>
+</dd>
+</dl>
+<p>If a script file is provided as an argument, it runs the script.
+If no arguments are provided, it starts the REPL mode.</p>
+<p>Exits with status code 64 if more than one argument is provided.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint.Flint.run">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_repl_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint.Flint.run" title="Link to this definition">¶</a></dt>
+<dd><p>Compiles and executes the given source code.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint.Flint.run_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint.Flint.run_file" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint.Flint.run_prompt">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_prompt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint.Flint.run_prompt" title="Link to this definition">¶</a></dt>
+<dd><p>Starts a Read-Eval-Print Loop (REPL) for the Flint programming language.</p>
+<p>This function continuously prompts the user for input, evaluates the input
+using the Flint interpreter, and prints the result. The loop terminates
+when the user inputs an empty string or ‘exit’.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>run_prompt()</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function sets <cite>Flint.had_error</cite> to False after each command execution.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.flint_callable">
+<span id="flint-flint-callable-module"></span><h2>flint.flint_callable module<a class="headerlink" href="#module-flint.flint_callable" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.flint_callable.ClockCallable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.flint_callable.</span></span><span class="sig-name descname"><span class="pre">ClockCallable</span></span><a class="headerlink" href="#flint.flint_callable.ClockCallable" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#flint.flint_callable.FlintCallable" title="flint.flint_callable.FlintCallable"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlintCallable</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_callable.ClockCallable.arity">
+<span class="sig-name descname"><span class="pre">arity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_callable.ClockCallable.arity" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of arguments the callable expects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_callable.ClockCallable.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpreter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_callable.ClockCallable.call" title="Link to this definition">¶</a></dt>
+<dd><p>Excutes the callable with the given interpreter and arguments</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_callable.ClockCallable.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_callable.ClockCallable.to_string" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the string representation of the callable</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.flint_callable.FlintCallable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.flint_callable.</span></span><span class="sig-name descname"><span class="pre">FlintCallable</span></span><a class="headerlink" href="#flint.flint_callable.FlintCallable" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_callable.FlintCallable.arity">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#flint.flint_callable.FlintCallable.arity" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of arguments the callable expects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_callable.FlintCallable.call">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpreter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#flint.flint_callable.FlintCallable.call" title="Link to this definition">¶</a></dt>
+<dd><p>Excutes the callable with the given interpreter and arguments</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_callable.FlintCallable.to_string">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#flint.flint_callable.FlintCallable.to_string" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the string representation of the callable</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.flint_function">
+<span id="flint-flint-function-module"></span><h2>flint.flint_function module<a class="headerlink" href="#module-flint.flint_function" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.flint_function.FlintFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.flint_function.</span></span><span class="sig-name descname"><span class="pre">FlintFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">declaration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_function.FlintFunction" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#flint.flint_callable.FlintCallable" title="flint.flint_callable.FlintCallable"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlintCallable</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_function.FlintFunction.arity">
+<span class="sig-name descname"><span class="pre">arity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_function.FlintFunction.arity" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of parameters the function takes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_function.FlintFunction.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpreter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_function.FlintFunction.call" title="Link to this definition">¶</a></dt>
+<dd><p>Calls the function with the given arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.flint_function.FlintFunction.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.flint_function.FlintFunction.to_string" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the string representation of the function.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.interpreter">
+<span id="flint-interpreter-module"></span><h2>flint.interpreter module<a class="headerlink" href="#module-flint.interpreter" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.interpreter.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.check_number_operand">
+<span class="sig-name descname"><span class="pre">check_number_operand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operand</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.check_number_operand" title="Link to this definition">¶</a></dt>
+<dd><p>Ensure the operand is a number else raise an error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.check_number_operands">
+<span class="sig-name descname"><span class="pre">check_number_operands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.check_number_operands" title="Link to this definition">¶</a></dt>
+<dd><p>Ensures that both operands are numbers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.evaluate" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates the given expression by accepting the visitor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.execute" title="Link to this definition">¶</a></dt>
+<dd><p>Executes a statement by delegating to its accept method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stmt</strong> (<a class="reference internal" href="flint.ast.html#flint.ast.stmt.Stmt" title="flint.ast.stmt.Stmt"><em>Stmt</em></a>) – The statement to be executed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.execute_block">
+<span class="sig-name descname"><span class="pre">execute_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.execute_block" title="Link to this definition">¶</a></dt>
+<dd><p>Executes a block of statements in a given environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>statements</strong> (<em>list</em>) – The statements to execute.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="#flint.environment.Environment" title="flint.environment.Environment"><em>Environment</em></a>) – The environment for the block’s scope.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.interpret">
+<span class="sig-name descname"><span class="pre">interpret</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statements</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.interpret" title="Link to this definition">¶</a></dt>
+<dd><p>Executes a list of statements sequentially.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>statements</strong> (<em>List</em><em>[</em><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Stmt" title="flint.ast.stmt.Stmt"><em>Stmt</em></a><em>]</em>) – A list of statements to be executed.</p>
+</dd>
+</dl>
+<p>Handles runtime errors gracefully by reporting them using the runtime_error method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.is_equal">
+<span class="sig-name descname"><span class="pre">is_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.is_equal" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.is_truthy">
+<span class="sig-name descname"><span class="pre">is_truthy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.is_truthy" title="Link to this definition">¶</a></dt>
+<dd><p>Determines the truthiness of an object based on Flints’s semantics</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.stringify">
+<span class="sig-name descname"><span class="pre">stringify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.stringify" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the given object to its string representation.
+:param obj: The object to be converted to a string. It can be of any type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The string representation of the object. If the object is None,</dt><dd><p>it returns “nil”. If the object is a float and ends with “.0”,
+the “.0” part is removed from the string representation.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_assign">
+<span class="sig-name descname"><span class="pre">visit_assign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_assign" title="Link to this definition">¶</a></dt>
+<dd><p>Visit an assignment expression, evaluate its value, and assign it to the
+corresponding variable in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>expr</strong> – The assignment expression to be visited. It should have ‘value’
+and ‘name’ attributes.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The evaluated value of the assignment expression.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_binary">
+<span class="sig-name descname"><span class="pre">visit_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_binary" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates binary expressions for supported operators</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_block">
+<span class="sig-name descname"><span class="pre">visit_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_block" title="Link to this definition">¶</a></dt>
+<dd><p>Visits a block statement, creating a new environment for the block and executing
+the statements within it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stmt</strong> – The block statement to be visited, which contains a list of statements.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_call">
+<span class="sig-name descname"><span class="pre">visit_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_call" title="Link to this definition">¶</a></dt>
+<dd><p>Handles a call expression by evaluating the callee and arguments, and then calling the function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_expression">
+<span class="sig-name descname"><span class="pre">visit_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_expression" title="Link to this definition">¶</a></dt>
+<dd><p>Executes an expression statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stmt</strong> – The expression statement to execute.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_function">
+<span class="sig-name descname"><span class="pre">visit_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_function" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates and executes a function declaration statement.</p>
+<p>This method creates a new FlintFunction object with the given function statement
+and stores it in the environment with the function’s name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stmt</strong> (<em>FunctionStmt</em>) – The function declaration statement to execute</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_grouping">
+<span class="sig-name descname"><span class="pre">visit_grouping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_grouping" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates a grouping expression</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_if_stmt">
+<span class="sig-name descname"><span class="pre">visit_if_stmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_if_stmt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_literal">
+<span class="sig-name descname"><span class="pre">visit_literal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_literal" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates literal expression</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_logical">
+<span class="sig-name descname"><span class="pre">visit_logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_logical" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_print">
+<span class="sig-name descname"><span class="pre">visit_print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_print" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates and executes a print statement.</p>
+<p>This method evaluates the given expression in the print statement
+and outputs the result to the console using Python’s built-in print function.
+A custom print library may replace this in the future for enhanced functionality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stmt</strong> (<em>PrintStmt</em>) – The print statement to evaluate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_unary">
+<span class="sig-name descname"><span class="pre">visit_unary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_unary" title="Link to this definition">¶</a></dt>
+<dd><p>Visit unary expression</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_var">
+<span class="sig-name descname"><span class="pre">visit_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_var" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates and executes a variable declaration statement.</p>
+<p>This method evaluates the initializer expression in the variable declaration statement
+and stores the result in the environment with the variable’s name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stmt</strong> (<em>VarStmt</em>) – The variable declaration statement to execute</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_variable">
+<span class="sig-name descname"><span class="pre">visit_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_variable" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates a variable expression by retrieving its value from the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>expr</strong> (<em>VariableExpr</em>) – The variable expression to evaluate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.interpreter.Interpreter.visit_while_stmt">
+<span class="sig-name descname"><span class="pre">visit_while_stmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.interpreter.Interpreter.visit_while_stmt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.parser">
+<span id="flint-parser-module"></span><h2>flint.parser module<a class="headerlink" href="#module-flint.parser" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.parser.Parser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.parser.</span></span><span class="sig-name descname"><span class="pre">Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_repl_mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parser class for parsing a list of tokens into an Abstract Syntax Tree (AST).
+.. attribute:: _tokens</p>
+<blockquote>
+<div><p>A list of Token objects to be parsed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.parser.Parser.current">
+<span class="sig-name descname"><span class="pre">current</span></span><a class="headerlink" href="#flint.parser.Parser.current" title="Link to this definition">¶</a></dt>
+<dd><p>Tracks the current position in the token list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="simple">
+<dt>Inner Classes:</dt><dd><p>ParseError: Custom exception for parsing errors.</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="flint.parser.Parser.ParseError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ParseError</span></span><a class="headerlink" href="#flint.parser.Parser.ParseError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Custom exception for error class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.advance">
+<span class="sig-name descname"><span class="pre">advance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.advance" title="Link to this definition">¶</a></dt>
+<dd><p>Advance the parser to the next token and return the current token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The token that was advanced past.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#flint.token.Token" title="flint.token.Token">Token</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.and_logic">
+<span class="sig-name descname"><span class="pre">and_logic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.and_logic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.assignment">
+<span class="sig-name descname"><span class="pre">assignment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.assignment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.binary_expr">
+<span class="sig-name descname"><span class="pre">binary_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_expr_method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">operators</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.binary_expr" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a binary expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sub_expr_method</strong> (<em>callable</em>) – The method to parse the sub-expressions (e.g., self.unary).</p></li>
+<li><p><strong>operators</strong> (<a class="reference internal" href="#flint.token_types.TokenType" title="flint.token_types.TokenType"><em>TokenType</em></a>) – The binary operators to handle at this level.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>Expr</strong> – The parsed binary expression or a single sub-expression.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.block">
+<span class="sig-name descname"><span class="pre">block</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.block" title="Link to this definition">¶</a></dt>
+<dd><p>Parses a block of code enclosed in braces and returns a list of statements.
+This method continues to parse declarations and add them to the statements
+list until it encounters a right brace or reaches the end of the input.
+:returns: A list of parsed statements within the block.
+:rtype: list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#flint.parser.Parser.ParseError" title="flint.parser.Parser.ParseError"><strong>ParseError</strong></a> – If the right brace ‘}’ is not found after the block.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.call" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a call expression.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.check" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the current token matches a specific type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token_type</strong> (<em>str</em>) – The type of token to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the current token matches the type, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.comparision">
+<span class="sig-name descname"><span class="pre">comparision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.comparision" title="Link to this definition">¶</a></dt>
+<dd><p>Parses and returns a comparison expression.
+This method handles comparison operators such as greater than, greater than or equal to,
+less than, and less than or equal to. It maintains left associativity by constructing
+a binary expression tree.
+:returns: The parsed comparison expression.
+:rtype: expr</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.consume">
+<span class="sig-name descname"><span class="pre">consume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#flint.token_types.TokenType" title="flint.token_types.TokenType"><span class="pre">TokenType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.consume" title="Link to this definition">¶</a></dt>
+<dd><p>Consume the current token if it matches the expected type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token_type</strong> (<em>str</em>) – The expected type of the token.</p></li>
+<li><p><strong>error_message</strong> (<em>str</em>) – The error message to raise if the token doesn’t match.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The consumed token.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#flint.token.Token" title="flint.token.Token">Token</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If the current token does not match the expected type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.declaration">
+<span class="sig-name descname"><span class="pre">declaration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.declaration" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a declaration statement.</p>
+<p>If the current token matches a variable declaration (<cite>VAR</cite>),
+parse it as a variable declaration. Otherwise, parse it as a general statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed statement object, or None if a parse error occurs.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Stmt" title="flint.ast.stmt.Stmt">Stmt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.equality">
+<span class="sig-name descname"><span class="pre">equality</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.equality" title="Link to this definition">¶</a></dt>
+<dd><p>Parses an equality expression, handling binary operations with ‘!=’ and ‘==’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.error" title="Link to this definition">¶</a></dt>
+<dd><p>Handles parsing errors by raising a custom ParseError.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> – The token where the error occurred.</p></li>
+<li><p><strong>message</strong> – A description of the error.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>self.ParseError</strong> – Custom exception indicating a parsing error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.expression">
+<span class="sig-name descname"><span class="pre">expression</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.expression" title="Link to this definition">¶</a></dt>
+<dd><p>Parses and returns an expression.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.expression_statement">
+<span class="sig-name descname"><span class="pre">expression_statement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.expression_statement" title="Link to this definition">¶</a></dt>
+<dd><p>Parses an expression statement in the source code.</p>
+<p>This method expects an expression followed by a semicolon.
+It consumes the semicolon token and returns an Expression statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An expression statement object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stmt.Expression</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#flint.parser.Parser.ParseError" title="flint.parser.Parser.ParseError"><strong>ParseError</strong></a> – If the semicolon is not found after the expression.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.factor">
+<span class="sig-name descname"><span class="pre">factor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.factor" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.finish_call">
+<span class="sig-name descname"><span class="pre">finish_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callee</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.finish_call" title="Link to this definition">¶</a></dt>
+<dd><p>Parse the arguments for a function call expression.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.for_statement">
+<span class="sig-name descname"><span class="pre">for_statement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.for_statement" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.function">
+<span class="sig-name descname"><span class="pre">function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kind</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.function" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a funtion declaration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.if_statement">
+<span class="sig-name descname"><span class="pre">if_statement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.if_statement" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.is_at_end">
+<span class="sig-name descname"><span class="pre">is_at_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#flint.parser.Parser.is_at_end" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the parser has reached the end of the tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if at the end of the token stream, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#flint.parser.Parser.match" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the current token matches any of the given types.
+If a match is found, advances the token pointer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>types</strong> (<em>str</em>) – The token types to check against.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a match is found, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.or_logic">
+<span class="sig-name descname"><span class="pre">or_logic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.or_logic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.parse" title="Link to this definition">¶</a></dt>
+<dd><p>Parses the input and returns a list of statements.
+This method repeatedly calls the <cite>declaration</cite> method to parse
+declarations until the end of the input is reached. The parsed
+declarations are collected into a list and returned.
+:returns: A list of parsed statements.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.peek" title="Link to this definition">¶</a></dt>
+<dd><p>Get the current token without advancing the parser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current token.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#flint.token.Token" title="flint.token.Token">Token</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.previous">
+<span class="sig-name descname"><span class="pre">previous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.previous" title="Link to this definition">¶</a></dt>
+<dd><p>Get the most recently consumed token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The previous token.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#flint.token.Token" title="flint.token.Token">Token</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.primary">
+<span class="sig-name descname"><span class="pre">primary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.primary" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a primary expression.</p>
+<p>Handles literals, variables, and grouped expressions enclosed in parentheses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed primary expression.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="flint.ast.html#flint.ast.expr.Expr" title="flint.ast.expr.Expr">Expr</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.print_statement">
+<span class="sig-name descname"><span class="pre">print_statement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.print_statement" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a print statement.</p>
+<p>This method consumes the current token as an expression to be printed,
+and ensures the statement ends with a semicolon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Print statement AST node containing the parsed expression.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Print" title="flint.ast.stmt.Print">Print</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.statement">
+<span class="sig-name descname"><span class="pre">statement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.statement" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a single statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed statement as an AST node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="flint.ast.html#flint.ast.stmt.Stmt" title="flint.ast.stmt.Stmt">Stmt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.synchronize">
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.synchronize" title="Link to this definition">¶</a></dt>
+<dd><p>Synchronizes the parser by advancing through tokens until it finds a
+statement boundary. This is typically used to recover from a parsing
+error and continue parsing subsequent statements.
+The method advances the parser until it finds a semicolon or a token
+that indicates the start of a new statement, such as a class, function,
+variable declaration, or control flow keyword (for, if, while, print,
+return).
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.term">
+<span class="sig-name descname"><span class="pre">term</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.term" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="flint.parser.Parser.tokens">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tokens</span></span><a class="headerlink" href="#flint.parser.Parser.tokens" title="Link to this definition">¶</a></dt>
+<dd><p>Provides read-only access to the tokens.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.unary">
+<span class="sig-name descname"><span class="pre">unary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.unary" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.var_declaration">
+<span class="sig-name descname"><span class="pre">var_declaration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.var_declaration" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a variable declaration statement.</p>
+<p>Expects a variable name, followed optionally by an initializer
+(if an ‘=’ token is present), and ends with a semicolon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A variable declaration statement containing the variable’s
+name and initializer expression (or None if no initializer is provided).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stmt.Var</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.parser.Parser.while_statement">
+<span class="sig-name descname"><span class="pre">while_statement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.parser.Parser.while_statement" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.runtime_error">
+<span id="flint-runtime-error-module"></span><h2>flint.runtime_error module<a class="headerlink" href="#module-flint.runtime_error" title="Link to this heading">¶</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="flint.runtime_error.CustomRunTimeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.runtime_error.</span></span><span class="sig-name descname"><span class="pre">CustomRunTimeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.runtime_error.CustomRunTimeError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Custom exception for runtime errors with a token context</p>
+</dd></dl>
+
+</section>
+<section id="module-flint.scanner">
+<span id="flint-scanner-module"></span><h2>flint.scanner module<a class="headerlink" href="#module-flint.scanner" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.scanner.Scanner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.scanner.</span></span><span class="sig-name descname"><span class="pre">Scanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.KEYWORDS">
+<span class="sig-name descname"><span class="pre">KEYWORDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'and':</span> <span class="pre">TokenType.KEYWORD_AND,</span> <span class="pre">'class':</span> <span class="pre">TokenType.KEYWORD_CLASS,</span> <span class="pre">'else':</span> <span class="pre">TokenType.KEYWORD_ELSE,</span> <span class="pre">'false':</span> <span class="pre">TokenType.KEYWORD_FALSE,</span> <span class="pre">'fn':</span> <span class="pre">TokenType.KEYWORD_FUNCTION,</span> <span class="pre">'for':</span> <span class="pre">TokenType.KEYWORD_FOR,</span> <span class="pre">'if':</span> <span class="pre">TokenType.KEYWORD_IF,</span> <span class="pre">'nil':</span> <span class="pre">TokenType.KEYWORD_NIL,</span> <span class="pre">'or':</span> <span class="pre">TokenType.KEYWORD_OR,</span> <span class="pre">'print':</span> <span class="pre">TokenType.KEYWORD_PRINT,</span> <span class="pre">'return':</span> <span class="pre">TokenType.KEYWORD_RETURN,</span> <span class="pre">'super':</span> <span class="pre">TokenType.KEYWORD_SUPER,</span> <span class="pre">'this':</span> <span class="pre">TokenType.KEYWORD_THIS,</span> <span class="pre">'true':</span> <span class="pre">TokenType.KEYWORD_TRUE,</span> <span class="pre">'var':</span> <span class="pre">TokenType.KEYWORD_VARIABLE,</span> <span class="pre">'while':</span> <span class="pre">TokenType.KEYWORD_WHILE}</span></em><a class="headerlink" href="#flint.scanner.Scanner.KEYWORDS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.add_token">
+<span class="sig-name descname"><span class="pre">add_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">literal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.add_token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.advance">
+<span class="sig-name descname"><span class="pre">advance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#flint.scanner.Scanner.advance" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.indentifier">
+<span class="sig-name descname"><span class="pre">indentifier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.indentifier" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.is_alpha">
+<span class="sig-name descname"><span class="pre">is_alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.is_alpha" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the character is an alphabet or an underscore.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.is_alphanumeric">
+<span class="sig-name descname"><span class="pre">is_alphanumeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.is_alphanumeric" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the char is a letter, digit or underscore</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.is_at_end">
+<span class="sig-name descname"><span class="pre">is_at_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.is_at_end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.is_digit">
+<span class="sig-name descname"><span class="pre">is_digit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.is_digit" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#flint.scanner.Scanner.match" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.number">
+<span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.number" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.peek" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.peek_next">
+<span class="sig-name descname"><span class="pre">peek_next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.peek_next" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.scan_multiline_comment">
+<span class="sig-name descname"><span class="pre">scan_multiline_comment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.scan_multiline_comment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.scan_token">
+<span class="sig-name descname"><span class="pre">scan_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.scan_token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.scan_tokens">
+<span class="sig-name descname"><span class="pre">scan_tokens</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.scan_tokens" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.scanner.Scanner.string">
+<span class="sig-name descname"><span class="pre">string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.scanner.Scanner.string" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.token">
+<span id="flint-token-module"></span><h2>flint.token module<a class="headerlink" href="#module-flint.token" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.token.Token">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.token.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#flint.token_types.TokenType" title="flint.token_types.TokenType"><span class="pre">TokenType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lexeme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">literal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.token.Token" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a single token in the Tachyon programming language.</p>
+<dl class="simple">
+<dt>params:</dt><dd><p><a href="#id1"><span class="problematic" id="id2">type_</span></a> (TokenType): The type of the token (e.g., identifier, keyword, operator).
+lexeme (str): The actual string representation of the token from the source code.
+literal (object): The literal value of the token, if applicable (e.g., number or string values).
+line (int): The line number in the source code where the token appears.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="flint.token.Token.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flint.token.Token.__str__" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a formatted string representation of the token for debugging and logging purposes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint.token_types">
+<span id="flint-token-types-module"></span><h2>flint.token_types module<a class="headerlink" href="#module-flint.token_types" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="flint.token_types.TokenType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flint.token_types.</span></span><span class="sig-name descname"><span class="pre">TokenType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flint.token_types.TokenType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This class categorizes tokens into:
+- Single-character tokens (e.g., parentheses, operators).
+- One or two-character tokens (e.g., comparison operators).
+- Literals (e.g., identifiers, strings, numbers).
+- Keywords (reserved words in the language).
+- Special tokens (e.g., end-of-file).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.ASSIGN">
+<span class="sig-name descname"><span class="pre">ASSIGN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#flint.token_types.TokenType.ASSIGN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.ASTERISK">
+<span class="sig-name descname"><span class="pre">ASTERISK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#flint.token_types.TokenType.ASTERISK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.COMMA">
+<span class="sig-name descname"><span class="pre">COMMA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#flint.token_types.TokenType.COMMA" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.DOT">
+<span class="sig-name descname"><span class="pre">DOT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#flint.token_types.TokenType.DOT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.EOF">
+<span class="sig-name descname"><span class="pre">EOF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#flint.token_types.TokenType.EOF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.EQUAL">
+<span class="sig-name descname"><span class="pre">EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#flint.token_types.TokenType.EQUAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.EQUAL_EQUAL">
+<span class="sig-name descname"><span class="pre">EQUAL_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#flint.token_types.TokenType.EQUAL_EQUAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.EXCLAMATION">
+<span class="sig-name descname"><span class="pre">EXCLAMATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#flint.token_types.TokenType.EXCLAMATION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.EXCLAMATION_EQUAL">
+<span class="sig-name descname"><span class="pre">EXCLAMATION_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></em><a class="headerlink" href="#flint.token_types.TokenType.EXCLAMATION_EQUAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.FORWARD_SLASH">
+<span class="sig-name descname"><span class="pre">FORWARD_SLASH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#flint.token_types.TokenType.FORWARD_SLASH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.GREATER_THAN">
+<span class="sig-name descname"><span class="pre">GREATER_THAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">17</span></em><a class="headerlink" href="#flint.token_types.TokenType.GREATER_THAN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.GREATER_THAN_EQUAL">
+<span class="sig-name descname"><span class="pre">GREATER_THAN_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></em><a class="headerlink" href="#flint.token_types.TokenType.GREATER_THAN_EQUAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.IDENTIFIER">
+<span class="sig-name descname"><span class="pre">IDENTIFIER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">21</span></em><a class="headerlink" href="#flint.token_types.TokenType.IDENTIFIER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_AND">
+<span class="sig-name descname"><span class="pre">KEYWORD_AND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_AND" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_CLASS">
+<span class="sig-name descname"><span class="pre">KEYWORD_CLASS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">25</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_CLASS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_ELSE">
+<span class="sig-name descname"><span class="pre">KEYWORD_ELSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">26</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_ELSE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_FALSE">
+<span class="sig-name descname"><span class="pre">KEYWORD_FALSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">27</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_FALSE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_FOR">
+<span class="sig-name descname"><span class="pre">KEYWORD_FOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">29</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_FOR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_FUNCTION">
+<span class="sig-name descname"><span class="pre">KEYWORD_FUNCTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">28</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_FUNCTION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_IF">
+<span class="sig-name descname"><span class="pre">KEYWORD_IF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_IF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_NIL">
+<span class="sig-name descname"><span class="pre">KEYWORD_NIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">31</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_NIL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_OR">
+<span class="sig-name descname"><span class="pre">KEYWORD_OR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_OR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_PRINT">
+<span class="sig-name descname"><span class="pre">KEYWORD_PRINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">33</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_PRINT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_RETURN">
+<span class="sig-name descname"><span class="pre">KEYWORD_RETURN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">34</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_RETURN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_SUPER">
+<span class="sig-name descname"><span class="pre">KEYWORD_SUPER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">35</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_SUPER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_THIS">
+<span class="sig-name descname"><span class="pre">KEYWORD_THIS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">36</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_THIS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_TRUE">
+<span class="sig-name descname"><span class="pre">KEYWORD_TRUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">37</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_TRUE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_VARIABLE">
+<span class="sig-name descname"><span class="pre">KEYWORD_VARIABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">38</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_VARIABLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.KEYWORD_WHILE">
+<span class="sig-name descname"><span class="pre">KEYWORD_WHILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">39</span></em><a class="headerlink" href="#flint.token_types.TokenType.KEYWORD_WHILE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.LEFT_BRACE">
+<span class="sig-name descname"><span class="pre">LEFT_BRACE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#flint.token_types.TokenType.LEFT_BRACE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.LEFT_PAREN">
+<span class="sig-name descname"><span class="pre">LEFT_PAREN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#flint.token_types.TokenType.LEFT_PAREN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.LESS_THAN">
+<span class="sig-name descname"><span class="pre">LESS_THAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19</span></em><a class="headerlink" href="#flint.token_types.TokenType.LESS_THAN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.LESS_THAN_EQUAL">
+<span class="sig-name descname"><span class="pre">LESS_THAN_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#flint.token_types.TokenType.LESS_THAN_EQUAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.MINUS">
+<span class="sig-name descname"><span class="pre">MINUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#flint.token_types.TokenType.MINUS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.NUMBER_LITERAL">
+<span class="sig-name descname"><span class="pre">NUMBER_LITERAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">23</span></em><a class="headerlink" href="#flint.token_types.TokenType.NUMBER_LITERAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.PLUS">
+<span class="sig-name descname"><span class="pre">PLUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#flint.token_types.TokenType.PLUS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.RIGHT_BRACE">
+<span class="sig-name descname"><span class="pre">RIGHT_BRACE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#flint.token_types.TokenType.RIGHT_BRACE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.RIGHT_PAREN">
+<span class="sig-name descname"><span class="pre">RIGHT_PAREN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#flint.token_types.TokenType.RIGHT_PAREN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.SEMICOLON">
+<span class="sig-name descname"><span class="pre">SEMICOLON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#flint.token_types.TokenType.SEMICOLON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flint.token_types.TokenType.STRING_LITERAL">
+<span class="sig-name descname"><span class="pre">STRING_LITERAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">22</span></em><a class="headerlink" href="#flint.token_types.TokenType.STRING_LITERAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-flint">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-flint" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, mrinmoy
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">flint package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-flint.environment">flint.environment module</a><ul>
+<li><a class="reference internal" href="#flint.environment.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
+<li><a class="reference internal" href="#flint.environment.Environment.assign"><code class="docutils literal notranslate"><span class="pre">Environment.assign()</span></code></a></li>
+<li><a class="reference internal" href="#flint.environment.Environment.define"><code class="docutils literal notranslate"><span class="pre">Environment.define()</span></code></a></li>
+<li><a class="reference internal" href="#flint.environment.Environment.get"><code class="docutils literal notranslate"><span class="pre">Environment.get()</span></code></a></li>
+<li><a class="reference internal" href="#flint.environment.Environment.log_environment"><code class="docutils literal notranslate"><span class="pre">Environment.log_environment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.flint">flint.flint module</a><ul>
+<li><a class="reference internal" href="#flint.flint.Flint"><code class="docutils literal notranslate"><span class="pre">Flint</span></code></a><ul>
+<li><a class="reference internal" href="#flint.flint.Flint.global_environment"><code class="docutils literal notranslate"><span class="pre">Flint.global_environment</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint.Flint.had_error"><code class="docutils literal notranslate"><span class="pre">Flint.had_error</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint.Flint.had_runtime_error"><code class="docutils literal notranslate"><span class="pre">Flint.had_runtime_error</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint.Flint.main"><code class="docutils literal notranslate"><span class="pre">Flint.main()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint.Flint.run"><code class="docutils literal notranslate"><span class="pre">Flint.run()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint.Flint.run_file"><code class="docutils literal notranslate"><span class="pre">Flint.run_file()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint.Flint.run_prompt"><code class="docutils literal notranslate"><span class="pre">Flint.run_prompt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.flint_callable">flint.flint_callable module</a><ul>
+<li><a class="reference internal" href="#flint.flint_callable.ClockCallable"><code class="docutils literal notranslate"><span class="pre">ClockCallable</span></code></a><ul>
+<li><a class="reference internal" href="#flint.flint_callable.ClockCallable.arity"><code class="docutils literal notranslate"><span class="pre">ClockCallable.arity()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint_callable.ClockCallable.call"><code class="docutils literal notranslate"><span class="pre">ClockCallable.call()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint_callable.ClockCallable.to_string"><code class="docutils literal notranslate"><span class="pre">ClockCallable.to_string()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flint.flint_callable.FlintCallable"><code class="docutils literal notranslate"><span class="pre">FlintCallable</span></code></a><ul>
+<li><a class="reference internal" href="#flint.flint_callable.FlintCallable.arity"><code class="docutils literal notranslate"><span class="pre">FlintCallable.arity()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint_callable.FlintCallable.call"><code class="docutils literal notranslate"><span class="pre">FlintCallable.call()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint_callable.FlintCallable.to_string"><code class="docutils literal notranslate"><span class="pre">FlintCallable.to_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.flint_function">flint.flint_function module</a><ul>
+<li><a class="reference internal" href="#flint.flint_function.FlintFunction"><code class="docutils literal notranslate"><span class="pre">FlintFunction</span></code></a><ul>
+<li><a class="reference internal" href="#flint.flint_function.FlintFunction.arity"><code class="docutils literal notranslate"><span class="pre">FlintFunction.arity()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint_function.FlintFunction.call"><code class="docutils literal notranslate"><span class="pre">FlintFunction.call()</span></code></a></li>
+<li><a class="reference internal" href="#flint.flint_function.FlintFunction.to_string"><code class="docutils literal notranslate"><span class="pre">FlintFunction.to_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.interpreter">flint.interpreter module</a><ul>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter"><code class="docutils literal notranslate"><span class="pre">Interpreter</span></code></a><ul>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.check_number_operand"><code class="docutils literal notranslate"><span class="pre">Interpreter.check_number_operand()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.check_number_operands"><code class="docutils literal notranslate"><span class="pre">Interpreter.check_number_operands()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.evaluate"><code class="docutils literal notranslate"><span class="pre">Interpreter.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.execute"><code class="docutils literal notranslate"><span class="pre">Interpreter.execute()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.execute_block"><code class="docutils literal notranslate"><span class="pre">Interpreter.execute_block()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.interpret"><code class="docutils literal notranslate"><span class="pre">Interpreter.interpret()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.is_equal"><code class="docutils literal notranslate"><span class="pre">Interpreter.is_equal()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.is_truthy"><code class="docutils literal notranslate"><span class="pre">Interpreter.is_truthy()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.stringify"><code class="docutils literal notranslate"><span class="pre">Interpreter.stringify()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_assign"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_assign()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_binary"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_binary()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_block"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_block()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_call"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_call()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_expression"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_expression()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_function"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_function()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_grouping"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_grouping()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_if_stmt"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_if_stmt()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_literal"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_literal()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_logical"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_logical()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_print"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_print()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_unary"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_unary()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_var"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_var()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_variable"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_variable()</span></code></a></li>
+<li><a class="reference internal" href="#flint.interpreter.Interpreter.visit_while_stmt"><code class="docutils literal notranslate"><span class="pre">Interpreter.visit_while_stmt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.parser">flint.parser module</a><ul>
+<li><a class="reference internal" href="#flint.parser.Parser"><code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><ul>
+<li><a class="reference internal" href="#flint.parser.Parser.current"><code class="docutils literal notranslate"><span class="pre">Parser.current</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.ParseError"><code class="docutils literal notranslate"><span class="pre">Parser.ParseError</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.advance"><code class="docutils literal notranslate"><span class="pre">Parser.advance()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.and_logic"><code class="docutils literal notranslate"><span class="pre">Parser.and_logic()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.assignment"><code class="docutils literal notranslate"><span class="pre">Parser.assignment()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.binary_expr"><code class="docutils literal notranslate"><span class="pre">Parser.binary_expr()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.block"><code class="docutils literal notranslate"><span class="pre">Parser.block()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.call"><code class="docutils literal notranslate"><span class="pre">Parser.call()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.check"><code class="docutils literal notranslate"><span class="pre">Parser.check()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.comparision"><code class="docutils literal notranslate"><span class="pre">Parser.comparision()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.consume"><code class="docutils literal notranslate"><span class="pre">Parser.consume()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.declaration"><code class="docutils literal notranslate"><span class="pre">Parser.declaration()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.equality"><code class="docutils literal notranslate"><span class="pre">Parser.equality()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.error"><code class="docutils literal notranslate"><span class="pre">Parser.error()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.expression"><code class="docutils literal notranslate"><span class="pre">Parser.expression()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.expression_statement"><code class="docutils literal notranslate"><span class="pre">Parser.expression_statement()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.factor"><code class="docutils literal notranslate"><span class="pre">Parser.factor()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.finish_call"><code class="docutils literal notranslate"><span class="pre">Parser.finish_call()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.for_statement"><code class="docutils literal notranslate"><span class="pre">Parser.for_statement()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.function"><code class="docutils literal notranslate"><span class="pre">Parser.function()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.if_statement"><code class="docutils literal notranslate"><span class="pre">Parser.if_statement()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.is_at_end"><code class="docutils literal notranslate"><span class="pre">Parser.is_at_end()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.match"><code class="docutils literal notranslate"><span class="pre">Parser.match()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.or_logic"><code class="docutils literal notranslate"><span class="pre">Parser.or_logic()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.parse"><code class="docutils literal notranslate"><span class="pre">Parser.parse()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.peek"><code class="docutils literal notranslate"><span class="pre">Parser.peek()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.previous"><code class="docutils literal notranslate"><span class="pre">Parser.previous()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.primary"><code class="docutils literal notranslate"><span class="pre">Parser.primary()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.print_statement"><code class="docutils literal notranslate"><span class="pre">Parser.print_statement()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.statement"><code class="docutils literal notranslate"><span class="pre">Parser.statement()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.synchronize"><code class="docutils literal notranslate"><span class="pre">Parser.synchronize()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.term"><code class="docutils literal notranslate"><span class="pre">Parser.term()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.tokens"><code class="docutils literal notranslate"><span class="pre">Parser.tokens</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.unary"><code class="docutils literal notranslate"><span class="pre">Parser.unary()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.var_declaration"><code class="docutils literal notranslate"><span class="pre">Parser.var_declaration()</span></code></a></li>
+<li><a class="reference internal" href="#flint.parser.Parser.while_statement"><code class="docutils literal notranslate"><span class="pre">Parser.while_statement()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.runtime_error">flint.runtime_error module</a><ul>
+<li><a class="reference internal" href="#flint.runtime_error.CustomRunTimeError"><code class="docutils literal notranslate"><span class="pre">CustomRunTimeError</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.scanner">flint.scanner module</a><ul>
+<li><a class="reference internal" href="#flint.scanner.Scanner"><code class="docutils literal notranslate"><span class="pre">Scanner</span></code></a><ul>
+<li><a class="reference internal" href="#flint.scanner.Scanner.KEYWORDS"><code class="docutils literal notranslate"><span class="pre">Scanner.KEYWORDS</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.add_token"><code class="docutils literal notranslate"><span class="pre">Scanner.add_token()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.advance"><code class="docutils literal notranslate"><span class="pre">Scanner.advance()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.indentifier"><code class="docutils literal notranslate"><span class="pre">Scanner.indentifier()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.is_alpha"><code class="docutils literal notranslate"><span class="pre">Scanner.is_alpha()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.is_alphanumeric"><code class="docutils literal notranslate"><span class="pre">Scanner.is_alphanumeric()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.is_at_end"><code class="docutils literal notranslate"><span class="pre">Scanner.is_at_end()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.is_digit"><code class="docutils literal notranslate"><span class="pre">Scanner.is_digit()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.match"><code class="docutils literal notranslate"><span class="pre">Scanner.match()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.number"><code class="docutils literal notranslate"><span class="pre">Scanner.number()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.peek"><code class="docutils literal notranslate"><span class="pre">Scanner.peek()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.peek_next"><code class="docutils literal notranslate"><span class="pre">Scanner.peek_next()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.scan_multiline_comment"><code class="docutils literal notranslate"><span class="pre">Scanner.scan_multiline_comment()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.scan_token"><code class="docutils literal notranslate"><span class="pre">Scanner.scan_token()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.scan_tokens"><code class="docutils literal notranslate"><span class="pre">Scanner.scan_tokens()</span></code></a></li>
+<li><a class="reference internal" href="#flint.scanner.Scanner.string"><code class="docutils literal notranslate"><span class="pre">Scanner.string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.token">flint.token module</a><ul>
+<li><a class="reference internal" href="#flint.token.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li><a class="reference internal" href="#flint.token.Token.__str__"><code class="docutils literal notranslate"><span class="pre">Token.__str__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint.token_types">flint.token_types module</a><ul>
+<li><a class="reference internal" href="#flint.token_types.TokenType"><code class="docutils literal notranslate"><span class="pre">TokenType</span></code></a><ul>
+<li><a class="reference internal" href="#flint.token_types.TokenType.ASSIGN"><code class="docutils literal notranslate"><span class="pre">TokenType.ASSIGN</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.ASTERISK"><code class="docutils literal notranslate"><span class="pre">TokenType.ASTERISK</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.COMMA"><code class="docutils literal notranslate"><span class="pre">TokenType.COMMA</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.DOT"><code class="docutils literal notranslate"><span class="pre">TokenType.DOT</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.EOF"><code class="docutils literal notranslate"><span class="pre">TokenType.EOF</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.EQUAL"><code class="docutils literal notranslate"><span class="pre">TokenType.EQUAL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.EQUAL_EQUAL"><code class="docutils literal notranslate"><span class="pre">TokenType.EQUAL_EQUAL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.EXCLAMATION"><code class="docutils literal notranslate"><span class="pre">TokenType.EXCLAMATION</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.EXCLAMATION_EQUAL"><code class="docutils literal notranslate"><span class="pre">TokenType.EXCLAMATION_EQUAL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.FORWARD_SLASH"><code class="docutils literal notranslate"><span class="pre">TokenType.FORWARD_SLASH</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.GREATER_THAN"><code class="docutils literal notranslate"><span class="pre">TokenType.GREATER_THAN</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.GREATER_THAN_EQUAL"><code class="docutils literal notranslate"><span class="pre">TokenType.GREATER_THAN_EQUAL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.IDENTIFIER"><code class="docutils literal notranslate"><span class="pre">TokenType.IDENTIFIER</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_AND"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_AND</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_CLASS"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_CLASS</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_ELSE"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_ELSE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_FALSE"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_FALSE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_FOR"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_FOR</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_FUNCTION"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_FUNCTION</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_IF"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_IF</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_NIL"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_NIL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_OR"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_OR</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_PRINT"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_PRINT</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_RETURN"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_RETURN</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_SUPER"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_SUPER</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_THIS"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_THIS</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_TRUE"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_TRUE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_VARIABLE"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_VARIABLE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.KEYWORD_WHILE"><code class="docutils literal notranslate"><span class="pre">TokenType.KEYWORD_WHILE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.LEFT_BRACE"><code class="docutils literal notranslate"><span class="pre">TokenType.LEFT_BRACE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.LEFT_PAREN"><code class="docutils literal notranslate"><span class="pre">TokenType.LEFT_PAREN</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.LESS_THAN"><code class="docutils literal notranslate"><span class="pre">TokenType.LESS_THAN</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.LESS_THAN_EQUAL"><code class="docutils literal notranslate"><span class="pre">TokenType.LESS_THAN_EQUAL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.MINUS"><code class="docutils literal notranslate"><span class="pre">TokenType.MINUS</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.NUMBER_LITERAL"><code class="docutils literal notranslate"><span class="pre">TokenType.NUMBER_LITERAL</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.PLUS"><code class="docutils literal notranslate"><span class="pre">TokenType.PLUS</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.RIGHT_BRACE"><code class="docutils literal notranslate"><span class="pre">TokenType.RIGHT_BRACE</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.RIGHT_PAREN"><code class="docutils literal notranslate"><span class="pre">TokenType.RIGHT_PAREN</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.SEMICOLON"><code class="docutils literal notranslate"><span class="pre">TokenType.SEMICOLON</span></code></a></li>
+<li><a class="reference internal" href="#flint.token_types.TokenType.STRING_LITERAL"><code class="docutils literal notranslate"><span class="pre">TokenType.STRING_LITERAL</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flint">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>

@@ -38,8 +38,8 @@ Key Features
    
    .. code-block:: 
 
-      var x = 10  // Integer
-      var name = "Flint"  // String
+      var x = 10;  // Integer
+      var name = "Flint";  // String
 
 
 - **Function Declaration and Definition**
@@ -69,11 +69,13 @@ I welcome you to contribute to the Flint project. You can contribute by:
    - suggesting new features, 
    - or submitting pull requests.
 
-If you like the project, please give it a star on GitHub.
+If you like the project, give it a star on GitHub.
 
 Github: `Flint <https://github.com/mrinmoy-hex/Flint>`_
 
 
+Contents
+---------
 
 .. toctree::
    :maxdepth: 3

@@ -76,10 +76,13 @@ class Environment:
     
         """
         key = name.lexeme if hasattr(name, 'lexeme') else name
+        
+        # Check if the variable already exists and raise an error
         if key in self.values:
             raise CustomRunTimeError(name, f"Variable '{key}' already defined in the current scope.")
     
         self.values[key] = value
+        # print(f"Defined {key} in the environment with value {value}")
         
         
     def log_environment(self, filepath):

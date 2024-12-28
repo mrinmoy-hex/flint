@@ -10,5 +10,6 @@ fn add(num1, num2) {
 sayHi("Dear", "Reader");
 add(12, 23);
 
-// native function
-clock();
+
+// Native function call
+print clock();  // This should work now

@@ -3,9 +3,8 @@ from flint.token_types import TokenType
 from flint.runtime_error import CustomRunTimeError
 from flint.environment import Environment
 from tools.raise_error import *
-from flint.flint_callable import FlintCallable
+from flint.flint_callable import *
 from .flint_function import FlintFunction
-import time
 
 
 class Interpreter():
@@ -18,42 +17,14 @@ class Interpreter():
         """
         self.environment = environment # current environment for variable storage 
         
-        self.globals = Environment()    # global environment for the interpreter
-        # self.environment = self.globals # start with the global environment
+        self.globals = environment    # global environment for the interpreter
+        self.environment = self.globals # start with the global environment
         
         # define a native function "clock"
-        self.globals.define("clock", FlintCallable())
+        self.globals.define("clock", ClockCallable())
         
-        
-        
-        
-    ############################################
-    # FlintCallable methods
-    ############################################
-        
-    def arity(self) -> int:
-        """
-        Returns the number of arguments the callable expects
-        """
-        return 0
-    
-    
-    def call(interpreter, arguments):
-        """
-        Excutes the callable with the given interpreter and arguments
-        """
-        return time.time() / 1000.0
-    
-    
-    def to_string(self) -> str:
-        """
-        Returns a string representation of the callable
-        """
-        return "<native fn>"
-        
-        
-    
-    
+
+ 
     ############################################
     # Interpreter’s public API
     ############################################

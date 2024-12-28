@@ -545,17 +545,25 @@ class Parser:
         """
         Parse the arguments for a function call expression.
         """
+        arguments = []
+
+        # If there's no closing parenthesis, continue parsing arguments.
         if not self.check(TokenType.RIGHT_PAREN):
-            arguments = [self.expression()]     # parse the first argument
-            
-            while self.match(TokenType.COMMA):  # handle subsequent arguments
+            while True:
+                # Parse and append an argument
+                arguments.append(self.expression())
+                # Check for additional arguments
+                if not self.match(TokenType.COMMA):
+                    break
+
+                # If there are more than 255 arguments, raise an error
                 if len(arguments) >= 255:
                     self.error(self.peek(), "Cannot have more than 255 arguments.")
-                    
-                arguments.append(self.expression())
-            # ensure the closing parenthesis     
-            paren = self.consume(TokenType.RIGHT_PAREN, "Expect ')' after arguments.")
-            return Call(callee, paren, arguments)
+
+        # Ensure the closing parenthesis is consumed after parsing all arguments
+        paren = self.consume(TokenType.RIGHT_PAREN, "Expect ')' after arguments.")
+        # Return the function call expression with the callee, closing parenthesis, and arguments
+        return Call(callee, paren, arguments)
     
     
     

@@ -21,6 +21,9 @@ class StmtVisitor:
     def visit_print(self, print):
         raise NotImplementedError()
 
+    def visit_return_stmt(self, return_stmt):
+        raise NotImplementedError()
+
     def visit_var(self, var):
         raise NotImplementedError()
 
@@ -65,6 +68,14 @@ class Print(Stmt):
 
     def accept(self, visitor):
         return visitor.visit_print(self)
+
+class Return_stmt(Stmt):
+    def __init__(self, keyword, value):
+        self.keyword = keyword
+        self.value = value
+
+    def accept(self, visitor):
+        return visitor.visit_return_stmt(self)
 
 class Var(Stmt):
     def __init__(self, name, initializer):

@@ -66,6 +66,9 @@ class Parser:
             if self.match(TokenType.KEYWORD_VARIABLE):
                 return self.var_declaration()
             
+            if self.match(TokenType.KEYWORD_RETURN):
+                return self.return_stmt()
+            
             # if not a variable declaration, parse a general statement
             return self.statement()
         
@@ -175,6 +178,28 @@ class Parser:
         value = self.expression()   # parse the expression to print
         self.consume(TokenType.SEMICOLON, "Expect ';' after value.")
         return Print(value)         # return a Print statement AST node
+    
+    
+    
+    def return_stmt(self):
+        """
+        Parses a return statement in the source code.
+        This method handles the parsing of a return statement, which consists of a 
+        'return' keyword followed by an optional expression and a semicolon.
+        Returns:
+            Return_stmt: An instance of the Return_stmt class containing the 
+            keyword token and the optional return value expression.
+        Raises:
+            ParseError: If the semicolon after the return value is missing.
+        """
+        keyword = self.previous()
+        value = None
+        if not self.check(TokenType.SEMICOLON):
+            value = self.expression()
+        
+        self.consume(TokenType.SEMICOLON, "Expect ';' after return value.")
+        return Return_stmt(keyword, value)
+    
     
     
     

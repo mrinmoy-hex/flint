@@ -193,6 +193,15 @@ class Interpreter():
         return None
     
     
+    def visit_return_stmt(self, stmt):
+        value = None
+        if stmt.value is not None:
+            value = self.evaluate(stmt.value)
+            
+        raise Return(value)
+    
+    
+    
     def visit_var(self, stmt):
         """
         Evaluates and executes a variable declaration statement.

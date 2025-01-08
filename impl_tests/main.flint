@@ -1,12 +1,9 @@
 var name = "Flint Programming Language";
 print name;
 
-// gobal functions
-print clock();
-print clock();
-print clock();
-print clock();
-print clock();
-print clock();
-print clock();
-print clock();
+fn procedure() {
+    print "don't return anything";
+}
+
+var result = procedure();
+print result;

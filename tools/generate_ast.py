@@ -104,6 +104,7 @@ class GenerateAst:
             "If_stmt     : Expr condition, Stmt then_branch,"+
                          " Stmt else_branch",
             "Print       : Expr expression",
+            "Return_stmt     : Token keyword, Expr value",
             "Var         : Token name, Expr initializer ",   # for variable declaration
             "While_stmt       : Expr condition, Stmt body"
         ])

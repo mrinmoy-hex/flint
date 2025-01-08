@@ -1,5 +1,6 @@
 from flint.environment import Environment
 from flint.flint_callable import FlintCallable
+from flint.return_stmt import Return_stmts
 
 class FlintFunction(FlintCallable):
     
@@ -17,8 +18,14 @@ class FlintFunction(FlintCallable):
         environment = Environment(interpreter.globals)
         for i, param in enumerate(self.declaration.params):
             environment.define(param.lexeme, arguments[i])
-            
-        interpreter.execute_block(self.declaration.body, environment)
+        
+        try:    
+            # Execute the function body
+            interpreter.execute_block(self.declaration.body, environment)
+        except Return_stmts as r:
+            # Return the value of the return statement
+            return r.value
+        
         return None
     
     

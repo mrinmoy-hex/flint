@@ -31,8 +31,11 @@ statement      → exprStmt
                | forStmt
                | ifStmt
                | printStmt
+               | returnStmt
                | whileStmt
                | block ; ;
+
+returnStmt     → "return" expression? ";" ;
 
 funDecl        → "fn" function ;
 

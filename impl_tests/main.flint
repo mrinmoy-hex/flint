@@ -1,0 +1,12 @@
+var name = "Flint Programming Language";
+print name;
+
+// gobal functions
+print clock();
+print clock();
+print clock();
+print clock();
+print clock();
+print clock();
+print clock();
+print clock();

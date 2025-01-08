@@ -11,22 +11,23 @@ class FlintFunction(FlintCallable):
         self.declaration = declaration
         
     
-    def call(self,interpreter, arguments):
+    def call(self, interpreter, arguments):
         """
         Calls the function with the given arguments.
         """
         environment = Environment(interpreter.globals)
         for i, param in enumerate(self.declaration.params):
             environment.define(param.lexeme, arguments[i])
-        
-        try:    
-            # Execute the function body
+
+        try:
+            # Execute the function body within the new environment
             interpreter.execute_block(self.declaration.body, environment)
         except Return_stmts as r:
-            # Return the value of the return statement
+            # If a return statement is raised, return its value
             return r.value
-        
+
         return None
+
     
     
     def arity(self):

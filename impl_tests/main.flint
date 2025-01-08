@@ -3,6 +3,7 @@ print name;
 
 fn procedure() {
     print "don't return anything";
+    return 2;
 }
 
 var result = procedure();

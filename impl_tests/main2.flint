@@ -1,10 +1,13 @@
-// implementation of fibonacci sequence 
+fn fib(n, memo) {
+    if (n <= 1) return n;
+    if (memo[n] != nil) return memo[n];  // Return cached value if exists
 
-fn fib(n) {
-  if (n <= 1) return n;
-  return fib(n - 2) + fib(n - 1);
+    memo[n] = fib(n - 1, memo) + fib(n - 2, memo);  // Cache the result
+    return memo[n];
 }
 
+var memo = {};  // Create an empty memoization table
+
 for (var i = 0; i < 20; i = i + 1) {
-  print fib(i);
+    print fib(i, memo);  // Pass memo to the function
 }

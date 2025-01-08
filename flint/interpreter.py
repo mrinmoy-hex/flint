@@ -5,6 +5,7 @@ from flint.environment import Environment
 from tools.raise_error import *
 from flint.flint_callable import *
 from .flint_function import FlintFunction
+from flint.return_stmt import Return_stmts
 
 
 class Interpreter():
@@ -64,19 +65,27 @@ class Interpreter():
     def execute_block(self, statements, environment):
         """
         Executes a block of statements in a given environment.
-    
+
         Args:
             statements (list): The statements to execute.
             environment (Environment): The environment for the block's scope.
         """
         previous = self.environment
         try:
-            self.environment = environment      # switch to new environment
-            
+            self.environment = environment  # Switch to the new environment
+
             for statement in statements:
-                self.execute(statement)         # execute each statement in the block
+                # Execute each statement in the block
+                result = self.execute(statement)
+
+                # If a return statement is encountered, exit the block
+                if isinstance(statement, Return_stmts):
+                    return result
         finally:
-            self.environment = previous         # restore the previous environment
+            self.environment = previous  # Restore the previous environment
+
+        return None
+
             
             
             
@@ -198,7 +207,7 @@ class Interpreter():
         if stmt.value is not None:
             value = self.evaluate(stmt.value)
             
-        raise Return(value)
+        raise Return_stmts(value)
     
     
     

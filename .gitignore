@@ -8,3 +8,4 @@ ast/__pycache__
 
 .idea/
 .vscode/
+.env

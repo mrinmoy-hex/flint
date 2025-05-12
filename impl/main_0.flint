@@ -1,6 +1,6 @@
 // This is a comment 
 
-print "mrinmoy is a programmer :) ";
+print "mrinmoy is a programmer";
 
 print "one";
 print true;
